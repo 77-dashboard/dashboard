@@ -379,111 +379,20 @@
 
   <!-- 前端互動控制器 -->
   <script>
-    // 1. 分頁切換功能
-    function switchTab(tabId) {
-      // 隱藏所有 tab 內容
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      // 顯示目標 tab
-      const target = document.getElementById(tabId);
-      if (target) target.classList.remove('hidden');
-
-      // 重置所有 tab 按鈕樣式
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.className = 'tab-btn text-gray-400 hover:text-gray-200 transition';
-      });
-
-      // 設定當前選中按鈕為亮色與底線
-      const activeBtn = document.getElementById('nav-' + tabId);
-      if (activeBtn) {
-        activeBtn.className = 'tab-btn text-amber-400 font-semibold border-b-2 border-amber-400 pb-2 -mb-2.5';
-      }
-    }
-
-    // 2. 泡泡點擊切換股票詳情資料庫
-    const sectorData = {
-      memory: {
-        title: "記憶體",
-        desc: "此為指定股票的產業鏈觀察環節；缺少可驗證的近期事件，不作受惠判斷。觀望・等待公司證據。",
-        stocks: [
-          { name: "群聯 8299 ↗", url: "https://tw.stock.yahoo.com/quote/8299.TWO" },
-          { name: "華邦電 2344 ↗", url: "https://tw.stock.yahoo.com/quote/2344.TW" }
-        ]
-      },
-      foundry: {
-        title: "晶圓代工",
-        desc: "主要追蹤晶圓代工先進製程產能利用率與資本支出變化。目前維持產業鏈觀察。",
-        stocks: [
-          { name: "聯電 2303 ↗", url: "https://tw.stock.yahoo.com/quote/2303.TW" },
-          { name: "台積電 2330 ↗", url: "https://tw.stock.yahoo.com/quote/2330.TW" }
-        ]
-      },
-      server: {
-        title: "伺服器與電子代工",
-        desc: "確認最新營收、訂單與法說會進展，再提升影響評分。AI 伺服器機櫃量產時程為關鍵指標。",
-        stocks: [
-          { name: "廣達 2382 ↗", url: "https://tw.stock.yahoo.com/quote/2382.TW" },
-          { name: "鴻海 2317 ↗", url: "https://tw.stock.yahoo.com/quote/2317.TW" },
-          { name: "緯創 3231 ↗", url: "https://tw.stock.yahoo.com/quote/3231.TW" }
-        ]
-      }
-    };
-
-    function selectSector(key) {
-      const data = sectorData[key];
-      if (!data) return;
-
-      // 更新泡泡邊框焦點
-      document.querySelectorAll('.sector-bubble').forEach(b => {
-        b.className = 'sector-bubble cursor-pointer bg-[#0f172a]/70 border border-gray-800/90 rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3 transition duration-200';
-      });
-      const activeBubble = document.getElementById('bubble-' + key);
-      if (activeBubble) {
-        activeBubble.classList.remove('border-gray-800/90');
-        activeBubble.classList.add('border-2', 'border-amber-400');
-      }
-
-      // 更新詳情面板
-      document.getElementById('panel-title').innerText = data.title;
-      document.getElementById('panel-desc').innerText = data.desc;
-
-      const stocksContainer = document.getElementById('panel-stocks');
-      stocksContainer.innerHTML = '';
-      data.stocks.forEach(st => {
-        const a = document.createElement('a');
-        a.href = st.url;
-        a.target = '_blank';
-        a.className = 'px-3 py-1.5 bg-[#172236] hover:bg-gray-700 text-xs rounded border border-gray-700/80 text-gray-200 transition flex items-center gap-1';
-        a.innerText = st.name;
-        stocksContainer.appendChild(a);
-      });
-    }
-
-    // 3. 暫停/播放動畫按鈕
-    let isPaused = false;
-    function toggleAnimation() {
-      const btn = document.getElementById('btn-anim');
-      isPaused = !isPaused;
-      btn.innerText = isPaused ? '播放動畫' : '暫停動畫';
-      document.querySelectorAll('.glow-gold, .glow-blue, .glow-green').forEach(el => {
-        el.style.animationPlayState = isPaused ? 'paused' : 'running';
-      });
-    }
-
-    // 4. 立即更新按鈕
-    function triggerRefresh() {
-      const icon = document.getElementById('refresh-icon');
-      const text = document.getElementById('refresh-text');
-      icon.classList.add('animate-spin');
-      text.innerText = '更新中...';
-      setTimeout(() => {
-        icon.classList.remove('animate-spin');
-        text.innerText = '立即更新';
-        alert('已成功向伺服器發送同步請求，資料已更新至最新狀態！');
-      }, 1200);
-    }
-
-    // 預設載入記憶體詳情
-    selectSector('memory');
+    [ 每日定時觸發 (週一至週五 09:40) ]
+                  │
+                  ▼
+[ GitHub Actions 雲端伺服器 (免費) ]
+   1. 執行 update.py 爬蟲腳本
+   2. 抓取 TWSE/TPEx 營收與個股數據
+   3. 套用評分規則與 70/30 產業權重計算
+   4. 將最新結果覆寫至 data.json
+   5. 自動 Commit & Push 回 GitHub 倉庫
+                  │
+                  ▼
+[ GitHub Pages / 訪客瀏覽器 ]
+   前端網頁每分鐘自動 fetch('./data.json?t=' + Date.now())
+   👉 讀取最新數據並即時重新渲染畫面
   </script>
 </body>
 </html>
