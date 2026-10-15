@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>方舟運算 ｜ 產業價值區與台股決策手帳</title>
+  <title>方舟運算 ｜ 產業價值區</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +51,7 @@
             <h1 class="text-xl font-black text-[#523d31] tracking-wide">方舟運算</h1>
             <span class="px-2.5 py-0.5 bg-[#f5e7d5] text-[#7a533a] text-xs font-bold rounded-full border border-[#dfc2a6]">產業價值區</span>
           </div>
-          <p class="text-xs text-[#856b5a] mt-0.5">每日量化評分與台股基本面選股清單 🌸</p>
+          <p class="text-xs text-[#856b5a] mt-0.5">每日量化評分與台股基本面選股清單</p>
         </div>
       </div>
       <div class="flex items-center space-x-3 text-xs">
@@ -68,15 +68,15 @@
 
     <!-- 5 大分頁導航列 -->
     <nav class="flex flex-wrap gap-2 text-sm">
-      <button onclick="switchTab('tab-overview', this)" class="nav-tab px-4 py-2 bg-[#876046] text-white font-bold rounded-2xl shadow-sm transition">📋 追蹤總覽</button>
-      <button onclick="switchTab('tab-top5', this)" class="nav-tab px-4 py-2 bg-[#fffdf9] hover:bg-white text-[#664b3b] font-bold rounded-2xl border border-[#ebd8c7] transition">⭐ 今日必買 TOP 5</button>
+      <button onclick="switchTab('tab-overview', this)" class="nav-tab px-4 py-2 bg-[#fffdf9] hover:bg-white text-[#664b3b] font-bold rounded-2xl border border-[#ebd8c7] transition">📋 追蹤總覽</button>
+      <button onclick="switchTab('tab-top5', this)" class="nav-tab px-4 py-2 bg-[#876046] text-white font-bold rounded-2xl shadow-sm transition">⭐ 今日必買 TOP 5</button>
       <button onclick="switchTab('tab-supplychain', this)" class="nav-tab px-4 py-2 bg-[#fffdf9] hover:bg-white text-[#664b3b] font-bold rounded-2xl border border-[#ebd8c7] transition">🗺️ 產業鏈地圖</button>
       <button onclick="switchTab('tab-macro', this)" class="nav-tab px-4 py-2 bg-[#fffdf9] hover:bg-white text-[#664b3b] font-bold rounded-2xl border border-[#ebd8c7] transition">⛅ 總經與盤面環境</button>
       <span class="ml-auto text-xs text-[#967f6e] self-center font-mono" id="last-update-time">最後更新 2026/10/15 16:47</span>
     </nav>
 
     <!-- ==================== TAB 1: 追蹤總覽 ==================== -->
-    <div id="tab-overview" class="tab-panel space-y-6">
+    <div id="tab-overview" class="tab-panel hidden space-y-6">
       
       <!-- 今日大盤研判 -->
       <section class="notebook-card rounded-3xl p-5 space-y-2 bg-[#fdf9f4]">
@@ -89,7 +89,7 @@
         </p>
       </section>
 
-      <!-- 產業評分泡泡 (點擊可即時篩選) -->
+      <!-- 產業評分泡泡 -->
       <section class="space-y-4">
         <div class="flex justify-between items-center px-1">
           <div class="flex items-center gap-2">
@@ -100,7 +100,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <!-- 泡泡 1：AI 伺服器與代工 -->
+          <!-- 泡泡 1 -->
           <div onclick="filterStocks('AI伺服器代工')" class="notebook-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
             <div class="w-28 h-28 rounded-full bubble-gold flex flex-col items-center justify-center">
               <span class="px-2 py-0.5 bg-[#dba944] text-white text-[9px] font-black rounded-full shadow-sm mb-1">受惠 TOP 1</span>
@@ -112,7 +112,7 @@
             <span class="text-[11px] text-[#9e7021] font-bold bg-[#faf1db] px-2.5 py-0.5 rounded-full">點擊查看個股 ➔</span>
           </div>
 
-          <!-- 泡泡 2：設備與檢測 -->
+          <!-- 泡泡 2 -->
           <div onclick="filterStocks('半導體檢測')" class="notebook-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
             <div class="w-28 h-28 rounded-full bubble-green flex flex-col items-center justify-center">
               <span class="px-2 py-0.5 bg-[#6b9154] text-white text-[9px] font-black rounded-full shadow-sm mb-1">受惠 TOP 2</span>
@@ -124,7 +124,7 @@
             <span class="text-[11px] text-[#597d43] font-bold bg-[#eef5e9] px-2.5 py-0.5 rounded-full">點擊查看個股 ➔</span>
           </div>
 
-          <!-- 泡泡 3：ASIC 與材料 -->
+          <!-- 泡泡 3 -->
           <div onclick="filterStocks('IC設計與材料')" class="notebook-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
             <div class="w-28 h-28 rounded-full bubble-blue flex flex-col items-center justify-center">
               <span class="px-2 py-0.5 bg-[#5b87a3] text-white text-[9px] font-black rounded-full shadow-sm mb-1">受惠 TOP 3</span>
@@ -138,7 +138,7 @@
         </div>
       </section>
 
-      <!-- 股票卡片清單 (點擊會彈出分析手帳) -->
+      <!-- 股票卡片清單 -->
       <section class="space-y-4">
         <div class="flex justify-between items-center px-1">
           <div class="flex items-center gap-2">
@@ -155,8 +155,8 @@
 
     </div>
 
-    <!-- ==================== TAB 2: 今日必買 TOP 5 ==================== -->
-    <div id="tab-top5" class="tab-panel hidden space-y-4">
+    <!-- ==================== TAB 2: 今日必買 TOP 5 (整齊排版核心) ==================== -->
+    <div id="tab-top5" class="tab-panel space-y-4">
       <div class="notebook-card rounded-3xl p-6 space-y-4 bg-[#fffefc]">
         <div class="flex items-center justify-between border-b border-[#ebd8c7] pb-3">
           <div class="flex items-center gap-2.5">
@@ -169,9 +169,8 @@
           <span class="px-3 py-1 bg-[#faebd7] text-[#875932] text-xs font-bold rounded-full border border-[#e4ccb0]">嚴選量化推薦</span>
         </div>
 
-        <div class="space-y-3" id="top5-list-container">
-          <!-- TOP 5 由 JS 渲染 -->
-        </div>
+        <!-- 這裡由 JS 渲染絕對整齊的三欄式排版 -->
+        <div class="space-y-3.5" id="top5-list-container"></div>
       </div>
     </div>
 
@@ -308,7 +307,6 @@
 
   <!-- JavaScript 控制腳本 -->
   <script>
-    // 真實台股數據資料庫 (精準繁體中文與正式產業分類)
     const stockData = [
       { code: "2376", name: "技嘉", sector: "AI伺服器代工", price: "347", change: "-2.53%", mom: "+33.12%", yoy: "+125.45%", score: 95, rev: 40, sig: 19, res: 18, etf: 9, mac: 9, tag: "TOP 1 首選", advice: "單月營收年增暴衝 125%、月增高達 33.12%！大盤重跌 1656 點時僅跌 2.5%，展現極強韌的主力鎖碼防禦力，為今日第一首選入手標的。" },
       { code: "2360", name: "致茂", sector: "半導體檢測", price: "2,025", change: "-10.0%", mom: "+21.79%", yoy: "+206.47%", score: 93, rev: 39, sig: 19, res: 18, etf: 8, mac: 9, tag: "TOP 2 錯殺暴利", advice: "受惠 CoWoS 晶圓級檢測設備全面拉貨，營收年增暴增 206%、月增逾 21%！跌停純屬市場非理性恐慌錯殺，帶來極高勝率的超額波段買點。" },
@@ -351,7 +349,7 @@
       });
     }
 
-    // 2. 渲染 TOP 5
+    // 2. 渲染 TOP 5 (嚴格三欄對齊版)
     function renderTop5() {
       const container = document.getElementById("top5-list-container");
       container.innerHTML = "";
@@ -360,21 +358,31 @@
       top5List.forEach((s, idx) => {
         const item = document.createElement("div");
         item.onclick = () => openDetailModal(s.code);
-        item.className = "p-4 bg-[#fffdf9] hover:bg-white rounded-2xl border border-[#ebd8c7] flex flex-wrap justify-between items-center gap-4 cursor-pointer transition transform hover:-translate-y-0.5 shadow-sm";
+        item.className = "p-4 md:p-5 bg-[#fffdf9] hover:bg-white rounded-2xl border border-[#ebd8c7] flex items-center justify-between gap-4 cursor-pointer transition transform hover:-translate-y-0.5 shadow-sm";
         item.innerHTML = `
-          <div class="flex items-center gap-3.5">
-            <span class="w-10 h-10 rounded-2xl bg-[#faebd7] text-[#875932] border border-[#e4ccb0] flex items-center justify-center font-black font-mono text-lg shadow-inner">0${idx+1}</span>
-            <div>
-              <div class="font-black text-[#523d31] text-base">
-                <span>${s.name}</span>
-                <span class="text-xs font-mono text-[#856b5a] font-normal">(${s.code} · ${s.sector})</span>
-              </div>
-              <p class="text-xs text-[#6e5443] mt-1 font-medium">${s.advice}</p>
-            </div>
+          <!-- 左欄：固定序號圓圈 -->
+          <div class="flex-shrink-0 w-11 h-11 rounded-2xl bg-[#faebd7] text-[#875932] border border-[#e4ccb0] flex items-center justify-center font-black font-mono text-base shadow-inner">
+            0${idx+1}
           </div>
-          <div class="text-right">
-            <span class="text-2xl font-black font-mono text-[#b57a31]">${s.score} 分</span>
-            <div class="text-xs font-mono text-[#856b5a] font-bold">月增 ${s.mom} | 年增 ${s.yoy}</div>
+
+          <!-- 中欄：股票資訊與詳細解說 (佔滿剩餘寬度) -->
+          <div class="flex-1 min-w-0 pr-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="font-black text-[#523d31] text-base tracking-wide">${s.name}</span>
+              <span class="text-xs font-mono text-[#856b5a]">(${s.code} · ${s.sector})</span>
+            </div>
+            <p class="text-xs text-[#6e5443] mt-1 leading-relaxed font-medium">${s.advice}</p>
+          </div>
+
+          <!-- 右欄：固定寬度、靠右對齊的分數與數據 (絕不跑版) -->
+          <div class="flex-shrink-0 w-36 text-right border-l border-[#f0e4d7] pl-3">
+            <div class="text-2xl font-black font-mono text-[#b57a31] leading-none mb-1.5">
+              ${s.score} <span class="text-xs font-sans text-[#856b5a] font-bold">分</span>
+            </div>
+            <div class="text-[11px] font-mono text-[#856b5a] leading-tight space-y-0.5">
+              <div>月增 <strong class="${s.mom.includes('-') ? 'text-[#3e7282]' : 'text-[#ad4b4b]'}">${s.mom}</strong></div>
+              <div>年增 <strong class="text-[#ad4b4b]">${s.yoy}</strong></div>
+            </div>
           </div>
         `;
         container.appendChild(item);
@@ -438,7 +446,7 @@
       el.className = "nav-tab px-4 py-2 bg-[#876046] text-white font-bold rounded-2xl shadow-sm transition";
     }
 
-    // 6. 手動同步按鈕
+    // 6. 手動同步
     function refreshData() {
       const spin = document.getElementById("refresh-spin");
       const text = document.getElementById("refresh-text");
@@ -453,11 +461,11 @@
       }, 700);
     }
 
-    // 初始化頁面
+    // 初始化
     document.addEventListener("DOMContentLoaded", () => {
       renderCards(stockData);
       renderTop5();
     });
   </script>
 </body>
-</html>ㄋ
+</html>
