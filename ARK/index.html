@@ -3,115 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>方舟運算 ｜ 產業價值區</title>
+  <title>方舟小廚 ｜ 產業價值烘焙手帳</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    .glow-gold { box-shadow: 0 0 25px rgba(245, 158, 11, 0.45); }
-    .glow-blue { box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); }
-    .glow-green { box-shadow: 0 0 25px rgba(16, 185, 129, 0.4); }
+    body {
+      font-family: 'Zen Maru Gothic', -apple-system, sans-serif;
+      background-color: #faf6f0;
+      background-image: radial-gradient(#e6dbcf 0.75px, transparent 0.75px);
+      background-size: 16px 16px;
+    }
+    .hand-font {
+      font-family: 'Caveat', cursive;
+    }
+    .paper-card {
+      background: #fffdfa;
+      border: 1.5px solid #ebd9c8;
+      box-shadow: 0 4px 12px rgba(168, 137, 107, 0.08);
+    }
+    .recipe-tag {
+      background: #fdf2e9;
+      border: 1px dashed #d9b89b;
+    }
+    .tea-bubble-gold {
+      background: radial-gradient(circle, #fff9e6 0%, #faecc7 100%);
+      border: 2px dashed #e8c56c;
+      box-shadow: 0 4px 12px rgba(224, 185, 88, 0.2);
+    }
+    .tea-bubble-caramel {
+      background: radial-gradient(circle, #fcf4eb 0%, #f5e1cb 100%);
+      border: 2px dashed #cf9f74;
+      box-shadow: 0 4px 12px rgba(184, 126, 75, 0.15);
+    }
+    .tea-bubble-berry {
+      background: radial-gradient(circle, #fdf1f2 0%, #fbd5d7 100%);
+      border: 2px dashed #e8989d;
+      box-shadow: 0 4px 12px rgba(222, 122, 129, 0.18);
+    }
   </style>
 </head>
-<body class="bg-[#080d16] text-gray-200 min-h-screen p-4 md:p-8 font-sans">
-  <div class="max-w-7xl mx-auto space-y-6">
+<body class="text-[#4a3b32] min-h-screen p-4 md:p-8">
+  <div class="max-w-5xl mx-auto space-y-6">
 
-    <!-- 頂部 Header -->
-    <header class="flex flex-wrap justify-between items-center border-b border-gray-800/80 pb-4 gap-4">
-      <div class="flex items-center space-x-3">
-        <span class="px-2.5 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded text-xs font-bold tracking-wider">ARK</span>
+    <!-- 頂部 Header：日系烘焙小舖手帳 -->
+    <header class="paper-card rounded-3xl p-5 flex flex-wrap justify-between items-center gap-4">
+      <div class="flex items-center space-x-3.5">
+        <div class="w-12 h-12 rounded-2xl bg-[#faecd8] border border-[#e8ceb0] flex items-center justify-center text-2xl shadow-inner">
+          🍰
+        </div>
         <div>
-          <h1 class="text-lg font-bold text-gray-100 tracking-wide">方舟運算</h1>
-          <p class="text-[11px] text-gray-400">產業價值區與今日首選決策</p>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-black text-[#5c4033] tracking-wide">方舟甜點工坊</h1>
+            <span class="px-2.5 py-0.5 bg-[#f5e6d3] text-[#7d563e] text-xs font-bold rounded-full border border-[#dfc3a7]">🍋 產業價值食譜</span>
+          </div>
+          <p class="text-xs text-[#8c7362] mt-0.5">Today tastes like sunshine · 每日精選暖心選股手帳</p>
         </div>
       </div>
       <div class="flex items-center space-x-3 text-xs">
-        <div class="px-2.5 py-1 bg-red-500/10 text-red-400 border border-red-500/30 rounded font-mono">
-          加權 ▼1656 (-3.41%)
+        <div class="px-3 py-1.5 bg-[#fdeeee] text-[#c25e5e] border border-[#f0c2c2] rounded-full font-bold flex items-center gap-1.5">
+          <span>☕ 盤面微雨</span>
+          <span class="font-mono">▼1656 (-3.41%)</span>
         </div>
-        <button onclick="refreshData()" class="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 rounded transition flex items-center gap-1.5 cursor-pointer">
-          <svg id="refresh-spin" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-          <span id="refresh-text">重新整理</span>
+        <button onclick="refreshData()" class="px-3.5 py-1.5 bg-[#8c624a] hover:bg-[#77523d] text-white font-bold rounded-full shadow-sm transition flex items-center gap-1.5 cursor-pointer">
+          <svg id="refresh-spin" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+          <span id="refresh-text">慢熬手沖更新</span>
         </button>
       </div>
     </header>
 
-    <!-- 5 大分頁導航列 -->
-    <nav class="flex flex-wrap gap-6 text-sm border-b border-gray-800 pb-2">
-      <button onclick="switchTab('tab-overview', this)" class="nav-tab text-amber-400 font-semibold border-b-2 border-amber-400 pb-2 -mb-2.5">追蹤總覽</button>
-      <button onclick="switchTab('tab-top5', this)" class="nav-tab text-gray-400 hover:text-gray-200 transition">今日必買 TOP 5</button>
-      <button onclick="switchTab('tab-supplychain', this)" class="nav-tab text-gray-400 hover:text-gray-200 transition">產業鏈地圖</button>
-      <button onclick="switchTab('tab-macro', this)" class="nav-tab text-gray-400 hover:text-gray-200 transition">總經環境</button>
-      <span class="ml-auto text-xs text-gray-500 self-center" id="last-update-time">最後更新 2026/10/15 16:47:00</span>
+    <!-- 5 大手帳分頁導航 -->
+    <nav class="flex flex-wrap gap-2 text-sm">
+      <button onclick="switchTab('tab-overview', this)" class="nav-tab px-4 py-2 bg-[#8c624a] text-white font-bold rounded-2xl shadow-sm transition">📖 烘焙總覽</button>
+      <button onclick="switchTab('tab-top5', this)" class="nav-tab px-4 py-2 bg-[#fffdfa] hover:bg-white text-[#6b4e3d] font-bold rounded-2xl border border-[#ebd9c8] transition">🍓 今日出爐 TOP 5</button>
+      <button onclick="switchTab('tab-supplychain', this)" class="nav-tab px-4 py-2 bg-[#fffdfa] hover:bg-white text-[#6b4e3d] font-bold rounded-2xl border border-[#ebd9c8] transition">🧺 食材產地地圖</button>
+      <button onclick="switchTab('tab-macro', this)" class="nav-tab px-4 py-2 bg-[#fffdfa] hover:bg-white text-[#6b4e3d] font-bold rounded-2xl border border-[#ebd9c8] transition">⛅ 廚房氣候指標</button>
+      <span class="ml-auto text-xs text-[#9c8474] self-center hand-font text-base" id="last-update-time">Baked at 2026/10/15 16:47</span>
     </nav>
 
-    <!-- ==================== TAB 1: 追蹤總覽 ==================== -->
+    <!-- ==================== TAB 1: 烘焙總覽 ==================== -->
     <div id="tab-overview" class="tab-panel space-y-6">
       
-      <!-- 今日大盤研判 -->
-      <section class="bg-gradient-to-r from-[#1a1215] to-[#0f172a] border border-red-900/40 rounded-xl p-5 space-y-2">
+      <!-- 主廚今日備忘錄 -->
+      <section class="paper-card rounded-3xl p-5 space-y-2 bg-[#fdfaf5] border-dashed">
         <div class="flex items-center gap-2">
-          <span class="px-2 py-0.5 bg-red-500/20 text-red-400 border border-red-500/30 rounded text-xs font-bold">大盤暴跌研判</span>
-          <h2 class="text-base font-bold text-gray-100">大盤無差別重挫 1656 點，鎖定「營收雙增＋非理性錯殺」珍珠</h2>
+          <span class="text-xl">🐱</span>
+          <h2 class="text-base font-black text-[#6b4c35]">白貓店長的下午茶小紙條：大盤回檔時，尋找發酵最完美的好麵糰</h2>
         </div>
-        <p class="text-xs text-gray-300 leading-relaxed">
-          今日市場受系統性流動性恐慌拖累全面回檔。依 70/30 基本面量化原則：**避開單月營收轉負標的（如川湖 -30%、廣達 -23%）**，優先布局「營收雙位數月增 + 爆發性年增」的抗跌龍頭與跌停錯殺股（技嘉、致茂、鴻海）。
+        <p class="text-xs text-[#735845] leading-relaxed font-medium">
+          今日市場遭遇恐慌賣壓 1656 點。依據方舟「70/30 烘焙原則」：<strong class="text-[#b84d4d]">避開營收發酵不足的標的（如川湖月減 -30%、廣達月減 -23%）</strong>，挑選<strong>「營收月增年增雙雙大漲」</strong>且遭市場非理性錯殺的優質奶油小點（技嘉、致茂、鴻海），靜待香氣四溢！
         </p>
       </section>
 
-      <!-- 產業泡泡篩選區 -->
+      <!-- 3 大下午茶香氣泡泡 (點擊可即時篩選) -->
       <section class="space-y-4">
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-[10px] text-blue-400 font-semibold tracking-widest uppercase">MACRO · CAPITAL FLOW</p>
-            <h2 class="text-xl font-bold text-gray-100">核心產業評分泡泡</h2>
+        <div class="flex justify-between items-center px-1">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🫖</span>
+            <h2 class="text-base font-black text-[#5c4033]">今日香氣泡泡（點擊泡泡篩選食譜）</h2>
           </div>
-          <button onclick="filterStocks('all')" class="text-xs text-blue-400 hover:underline">顯示全部清單</button>
+          <button onclick="filterStocks('all')" class="text-xs font-bold text-[#8c624a] hover:underline bg-[#f2e4d5] px-3 py-1 rounded-full transition">🍯 展現全部食譜</button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <!-- AI伺服器與板卡 -->
-          <div onclick="filterStocks('AI伺服器')" class="cursor-pointer bg-[#0f172a]/70 hover:bg-[#131d31] border border-amber-500/80 rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3 transition duration-200">
-            <div class="relative w-28 h-28 rounded-full border-2 border-amber-400 bg-gradient-to-b from-[#1e293b] to-[#0f172a] flex flex-col items-center justify-center glow-gold">
-              <span class="absolute -top-3 px-2 py-0.5 bg-amber-500 text-black text-[9px] font-black rounded-full">受惠 TOP 1</span>
-              <span class="text-xs text-gray-400">AI 伺服器與代工</span>
-              <span class="text-2xl font-black text-amber-400">94.5</span>
-              <span class="text-[10px] text-gray-500">70/30評分</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- 泡泡 1：AI 伺服器與代工 -->
+          <div onclick="filterStocks('AI伺服器')" class="paper-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
+            <div class="w-28 h-28 rounded-full tea-bubble-gold flex flex-col items-center justify-center">
+              <span class="px-2 py-0.5 bg-[#dfa83d] text-white text-[9px] font-black rounded-full shadow-sm mb-1">黃金檸檬塔</span>
+              <span class="text-xs font-bold text-[#7d5d1b]">AI 伺服器代工</span>
+              <span class="text-2xl font-black text-[#966b1a]">94.5</span>
+              <span class="text-[9px] text-[#a67b2d]">70/30 甜度評分</span>
             </div>
-            <p class="text-xs text-gray-300 font-medium">營收雙增・籌碼鎖碼</p>
-            <span class="text-xs text-amber-400/80">點擊篩選股票 ↓</span>
+            <p class="text-xs font-bold text-[#694b21]">出貨動能最強・籌碼鎖碼</p>
+            <span class="text-[11px] text-[#a87826] font-bold bg-[#fbf0d9] px-2.5 py-0.5 rounded-full">查看檸檬派家族 ➔</span>
           </div>
 
-          <!-- 半導體與檢測設備 -->
-          <div onclick="filterStocks('設備檢測')" class="cursor-pointer bg-[#0f172a]/70 hover:bg-[#131d31] border border-gray-800 rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3 transition duration-200">
-            <div class="w-28 h-28 rounded-full border-2 border-emerald-500 bg-gradient-to-b from-[#1e293b] to-[#0f172a] flex flex-col items-center justify-center glow-green">
-              <span class="text-xs text-gray-400">設備與檢測</span>
-              <span class="text-2xl font-black text-emerald-400">92.0</span>
-              <span class="text-[10px] text-gray-500">70/30評分</span>
+          <!-- 泡泡 2：設備與檢測 -->
+          <div onclick="filterStocks('設備檢測')" class="paper-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
+            <div class="w-28 h-28 rounded-full tea-bubble-caramel flex flex-col items-center justify-center">
+              <span class="px-2 py-0.5 bg-[#ad7143] text-white text-[9px] font-black rounded-full shadow-sm mb-1">肉桂蘋果派</span>
+              <span class="text-xs font-bold text-[#73441e]">半導體與檢測</span>
+              <span class="text-2xl font-black text-[#854d22]">92.0</span>
+              <span class="text-[9px] text-[#8f5a32]">70/30 甜度評分</span>
             </div>
-            <p class="text-xs text-gray-300 font-medium">CoWoS 檢測成長暴增</p>
-            <span class="text-xs text-emerald-400/80">點擊篩選股票 ↓</span>
+            <p class="text-xs font-bold text-[#5c371b]">CoWoS 檢測成長大翻倍</p>
+            <span class="text-[11px] text-[#915a2e] font-bold bg-[#faede1] px-2.5 py-0.5 rounded-full">查看蘋果派家族 ➔</span>
           </div>
 
-          <!-- ASIC與IC設計 -->
-          <div onclick="filterStocks('IC設計')" class="cursor-pointer bg-[#0f172a]/70 hover:bg-[#131d31] border border-gray-800 rounded-2xl p-6 flex flex-col items-center justify-center text-center space-y-3 transition duration-200">
-            <div class="w-28 h-28 rounded-full border-2 border-blue-500 bg-gradient-to-b from-[#1e293b] to-[#0f172a] flex flex-col items-center justify-center glow-blue">
-              <span class="text-xs text-gray-400">ASIC 與材料</span>
-              <span class="text-2xl font-black text-blue-400">88.5</span>
-              <span class="text-[10px] text-gray-500">70/30評分</span>
+          <!-- 泡泡 3：ASIC 與材料 -->
+          <div onclick="filterStocks('IC設計')" class="paper-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
+            <div class="w-28 h-28 rounded-full tea-bubble-berry flex flex-col items-center justify-center">
+              <span class="px-2 py-0.5 bg-[#c25c64] text-white text-[9px] font-black rounded-full shadow-sm mb-1">草莓甜甜圈</span>
+              <span class="text-xs font-bold text-[#802f37]">ASIC 與高階材料</span>
+              <span class="text-2xl font-black text-[#963740]">88.5</span>
+              <span class="text-[9px] text-[#9e4a52]">70/30 甜度評分</span>
             </div>
-            <p class="text-xs text-gray-400 font-medium">雲端客製晶片放量</p>
-            <span class="text-xs text-blue-400/80">點擊篩選股票 ↓</span>
+            <p class="text-xs font-bold text-[#6e2229]">客製晶片放量成長</p>
+            <span class="text-[11px] text-[#ab454d] font-bold bg-[#fce8ea] px-2.5 py-0.5 rounded-full">查看草莓醬家族 ➔</span>
           </div>
         </div>
       </section>
 
-      <!-- 產業價值區股票清單 -->
+      <!-- 烘焙卡片清單 (點擊會彈出分析手帳) -->
       <section class="space-y-4">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center px-1">
           <div class="flex items-center gap-2">
-            <h2 class="text-sm font-semibold text-gray-300">產業價值區名單（今日數據）</h2>
-            <span id="current-filter-badge" class="px-2 py-0.5 bg-gray-800 text-gray-400 text-xs rounded">全部</span>
+            <h2 class="text-base font-black text-[#5c4033]">手作烘焙價值名冊</h2>
+            <span id="current-filter-badge" class="px-2.5 py-0.5 bg-white border border-[#ebd9c8] text-[#80604b] text-xs font-bold rounded-full">全部烘焙食材</span>
           </div>
-          <span class="text-xs text-gray-500">👉 點擊卡片可彈出「評分明細與買進建議」</span>
+          <span class="text-xs text-[#8c7362] font-medium">✨ 輕點食譜翻閱「100 分量化美味筆記」</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="stocks-grid">
@@ -123,13 +164,16 @@
 
     <!-- ==================== TAB 2: 今日必買 TOP 5 ==================== -->
     <div id="tab-top5" class="tab-panel hidden space-y-4">
-      <div class="bg-[#0f172a]/80 border border-amber-500/40 rounded-xl p-6 space-y-4">
-        <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-          <div>
-            <span class="text-xs text-amber-400 font-mono font-bold tracking-widest uppercase">QUANTITATIVE RESEARCH</span>
-            <h2 class="text-xl font-bold text-gray-100">今日最值得入手的 TOP 5 標的</h2>
+      <div class="paper-card rounded-3xl p-6 space-y-4 bg-[#fffefc]">
+        <div class="flex items-center justify-between border-b border-[#ebd9c8] pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">🍯</span>
+            <div>
+              <h2 class="text-lg font-black text-[#5c4033]">今日新鮮出爐 TOP 5 招牌點心</h2>
+              <p class="text-xs text-[#856550]">過濾發酵不全的品項，專注香氣最濃醇的五大王牌 🥐</p>
+            </div>
           </div>
-          <span class="px-2.5 py-1 bg-amber-500/20 text-amber-400 text-xs rounded-full font-bold">精準避開弱勢股</span>
+          <span class="px-3 py-1 bg-[#faebd7] text-[#8c5e38] text-xs font-bold rounded-full border border-[#e8ceb0]">主廚熱銷推薦</span>
         </div>
 
         <div class="space-y-3" id="top5-list-container">
@@ -138,182 +182,188 @@
       </div>
     </div>
 
-    <!-- ==================== TAB 3: 產業鏈地圖 ==================== -->
+    <!-- ==================== TAB 3: 食材產地地圖 ==================== -->
     <div id="tab-supplychain" class="tab-panel hidden space-y-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-[#131b2b]/70 border border-gray-800 rounded-xl p-5 space-y-2">
-          <div class="text-amber-400 text-xs font-bold font-mono">01 AI 伺服器與代工</div>
+        <div class="paper-card rounded-3xl p-5 space-y-2">
+          <div class="text-[#8c5e38] text-xs font-black flex items-center gap-1"><span>🌾</span> 01 代工小麥田</div>
           <div class="text-xs space-y-2 pt-2">
-            <div onclick="openDetailModal('2376')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-amber-400"><span>技嘉</span><span class="font-mono">2376 ↗</span></div>
-            <div onclick="openDetailModal('2317')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-amber-400"><span>鴻海</span><span class="font-mono">2317 ↗</span></div>
-            <div onclick="openDetailModal('2382')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-amber-400"><span>廣達</span><span class="font-mono">2382 ↗</span></div>
+            <div onclick="openDetailModal('2376')" class="flex justify-between py-1.5 border-b border-[#f0e3d5] cursor-pointer hover:text-[#b87640] font-bold"><span>技嘉 2376</span><span>品味 ➔</span></div>
+            <div onclick="openDetailModal('2317')" class="flex justify-between py-1.5 border-b border-[#f0e3d5] cursor-pointer hover:text-[#b87640] font-bold"><span>鴻海 2317</span><span>品味 ➔</span></div>
+            <div onclick="openDetailModal('2382')" class="flex justify-between py-1.5 border-b border-[#f0e3d5] cursor-pointer hover:text-[#b87640] font-bold"><span>廣達 2382</span><span>品味 ➔</span></div>
           </div>
         </div>
-        <div class="bg-[#131b2b]/70 border border-gray-800 rounded-xl p-5 space-y-2">
-          <div class="text-emerald-400 text-xs font-bold font-mono">02 半導體與檢測設備</div>
+        <div class="paper-card rounded-3xl p-5 space-y-2">
+          <div class="text-[#597843] text-xs font-black flex items-center gap-1"><span>🍏</span> 02 檢測綠蘋果園</div>
           <div class="text-xs space-y-2 pt-2">
-            <div onclick="openDetailModal('2360')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-emerald-400"><span>致茂</span><span class="font-mono">2360 ↗</span></div>
-            <div onclick="openDetailModal('2330')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-emerald-400"><span>台積電</span><span class="font-mono">2330 ↗</span></div>
-            <div onclick="openDetailModal('2467')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-emerald-400"><span>志聖</span><span class="font-mono">2467 ↗</span></div>
+            <div onclick="openDetailModal('2360')" class="flex justify-between py-1.5 border-b border-[#e5edd8] cursor-pointer hover:text-[#597843] font-bold"><span>致茂 2360</span><span>品味 ➔</span></div>
+            <div onclick="openDetailModal('2330')" class="flex justify-between py-1.5 border-b border-[#e5edd8] cursor-pointer hover:text-[#597843] font-bold"><span>台積電 2330</span><span>品味 ➔</span></div>
+            <div onclick="openDetailModal('2467')" class="flex justify-between py-1.5 border-b border-[#e5edd8] cursor-pointer hover:text-[#597843] font-bold"><span>志聖 2467</span><span>品味 ➔</span></div>
           </div>
         </div>
-        <div class="bg-[#131b2b]/70 border border-gray-800 rounded-xl p-5 space-y-2">
-          <div class="text-blue-400 text-xs font-bold font-mono">03 ASIC 與高頻材料</div>
+        <div class="paper-card rounded-3xl p-5 space-y-2">
+          <div class="text-[#963740] text-xs font-black flex items-center gap-1"><span>🍓</span> 03 草莓果醬工坊</div>
           <div class="text-xs space-y-2 pt-2">
-            <div onclick="openDetailModal('3661')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-blue-400"><span>世芯-KY</span><span class="font-mono">3661 ↗</span></div>
-            <div onclick="openDetailModal('2383')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-blue-400"><span>台光電</span><span class="font-mono">2383 ↗</span></div>
+            <div onclick="openDetailModal('3661')" class="flex justify-between py-1.5 border-b border-[#fae3e5] cursor-pointer hover:text-[#963740] font-bold"><span>世芯-KY 3661</span><span>品味 ➔</span></div>
+            <div onclick="openDetailModal('2383')" class="flex justify-between py-1.5 border-b border-[#fae3e5] cursor-pointer hover:text-[#963740] font-bold"><span>台光電 2383</span><span>品味 ➔</span></div>
           </div>
         </div>
-        <div class="bg-[#131b2b]/70 border border-gray-800 rounded-xl p-5 space-y-2">
-          <div class="text-cyan-400 text-xs font-bold font-mono">04 散熱與關鍵滑軌</div>
+        <div class="paper-card rounded-3xl p-5 space-y-2">
+          <div class="text-[#4f7887] text-xs font-black flex items-center gap-1"><span>🧂</span> 04 冰霜散熱泉</div>
           <div class="text-xs space-y-2 pt-2">
-            <div onclick="openDetailModal('2059')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-cyan-400"><span>川湖</span><span class="font-mono">2059 ↗</span></div>
-            <div onclick="openDetailModal('3017')" class="flex justify-between py-1.5 border-b border-gray-800 cursor-pointer hover:text-cyan-400"><span>奇鋐</span><span class="font-mono">3017 ↗</span></div>
+            <div onclick="openDetailModal('2059')" class="flex justify-between py-1.5 border-b border-[#e1eff2] cursor-pointer hover:text-[#4f7887] font-bold"><span>川湖 2059</span><span>品味 ➔</span></div>
+            <div onclick="openDetailModal('3017')" class="flex justify-between py-1.5 border-b border-[#e1eff2] cursor-pointer hover:text-[#4f7887] font-bold"><span>奇鋐 3017</span><span>品味 ➔</span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ==================== TAB 4: 總經環境 ==================== -->
+    <!-- ==================== TAB 4: 廚房氣候指標 ==================== -->
     <div id="tab-macro" class="tab-panel hidden space-y-4">
-      <div class="bg-[#0f172a]/70 border border-gray-800 rounded-xl p-6 space-y-4">
-        <h2 class="text-base font-bold text-gray-100">今日盤面指標與總經總結</h2>
+      <div class="paper-card rounded-3xl p-6 space-y-4">
+        <h2 class="text-base font-black text-[#5c4033] flex items-center gap-2"><span>⛅</span> 廚房外在天氣與烤箱溫度</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-          <div class="bg-[#131d31] p-4 rounded-lg border border-gray-800">
-            <div class="text-gray-400">加權指數漲跌</div>
-            <div class="text-xl font-bold text-red-400 mt-1">-3.41%</div>
-            <div class="text-[10px] text-gray-500 mt-1">-1656 點大回檔</div>
+          <div class="bg-[#fcf3f3] p-4 rounded-2xl border border-[#ebd2d2]">
+            <div class="text-[#a64e4e] font-bold">加權指數降溫</div>
+            <div class="text-2xl font-black text-[#b83e3e] mt-1">-3.41%</div>
+            <div class="text-[11px] text-[#a64e4e]/80 mt-1">-1656 點微雨</div>
           </div>
-          <div class="bg-[#131d31] p-4 rounded-lg border border-gray-800">
-            <div class="text-gray-400">台指期貨</div>
-            <div class="text-xl font-bold text-red-400 mt-1">-3.73%</div>
-            <div class="text-[10px] text-gray-500 mt-1">-1819 點</div>
+          <div class="bg-[#fcf8ec] p-4 rounded-2xl border border-[#ede2bc]">
+            <div class="text-[#8c7429] font-bold">市場恐慌熱風</div>
+            <div class="text-2xl font-black text-[#967d2e] mt-1">短線冷卻</div>
+            <div class="text-[11px] text-[#8c7429]/80 mt-1">安心挑選扎實麵包</div>
           </div>
-          <div class="bg-[#131d31] p-4 rounded-lg border border-gray-800">
-            <div class="text-gray-400">市場情緒</div>
-            <div class="text-xl font-bold text-amber-400 mt-1">恐慌拋售</div>
-            <div class="text-[10px] text-gray-500 mt-1">尋找基本面錯殺股</div>
+          <div class="bg-[#f5f8f0] p-4 rounded-2xl border border-[#d6e3c5]">
+            <div class="text-[#557833] font-bold">烤焙黃金比例</div>
+            <div class="text-2xl font-black text-[#5d8736] mt-1">70/30 配置</div>
+            <div class="text-[11px] text-[#557833]/80 mt-1">7成抗跌＋3成錯殺</div>
           </div>
-          <div class="bg-[#131d31] p-4 rounded-lg border border-gray-800">
-            <div class="text-gray-400">操作策略</div>
-            <div class="text-xl font-bold text-emerald-400 mt-1">70/30 布局</div>
-            <div class="text-[10px] text-gray-500 mt-1">70%抗跌 + 30%錯殺</div>
+          <div class="bg-[#f0f6fa] p-4 rounded-2xl border border-[#cbe1ed]">
+            <div class="text-[#3c6b87] font-bold">美味秘方</div>
+            <div class="text-2xl font-black text-[#3a7599] mt-1">雙增首選</div>
+            <div class="text-[11px] text-[#3c6b87]/80 mt-1">月增年增皆正最先回溫</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 底部說明 -->
-    <footer class="pt-6 border-t border-gray-800/80 text-[11px] text-gray-500 space-y-1">
-      <p>本網站內容為公開資訊整理與研究用途，不構成任何投資建議。投資人應依自身風險承受能力獨立判斷。</p>
-      <p><strong>台股排名原則：</strong>營收 40 分、新訊號 20 分、公司研究 20 分、ETF 10 分、總經與產業 10 分，負向證據扣分。不採用股價漲跌排名。</p>
+    <!-- 底部手帳註記 -->
+    <footer class="paper-card rounded-3xl p-5 text-xs text-[#8c7362] space-y-1 text-center border-dashed">
+      <p>🥐 本手帳內容為公開市場研究資訊，不代表任何形式之投資邀約。請細心烘焙屬於自己的甜點時光。</p>
+      <p><strong>烘焙評分原則：</strong>營收純度 40 分、新訊號 20 分、體質厚度 20 分、法人口味 10 分、環境氣候 10 分。</p>
     </footer>
 
   </div>
 
-  <!-- ==================== 彈出視窗：個股評分與買進建議 (Modal) ==================== -->
-  <div id="detail-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-    <div class="bg-[#0f172a] border border-gray-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
-      <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg font-bold cursor-pointer">✕</button>
+  <!-- ==================== 彈出視窗：主廚手寫 100 分美味筆記 (Modal) ==================== -->
+  <div id="detail-modal" class="fixed inset-0 bg-[#36271e]/40 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+    <div class="paper-card rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-xl relative bg-[#fffefa]">
+      <button onclick="closeDetailModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#f2e7db] text-[#6b4e3d] hover:bg-[#ebd9c8] text-base font-bold flex items-center justify-center cursor-pointer transition">✕</button>
       
-      <div class="flex items-center justify-between border-b border-gray-800 pb-3">
-        <div>
-          <span id="m-sector" class="text-xs text-blue-400 font-mono"></span>
-          <h3 id="m-title" class="text-xl font-bold text-white"></h3>
+      <div class="flex items-center justify-between border-b border-[#ebd9c8] pb-3">
+        <div class="flex items-center gap-3">
+          <span class="text-3xl" id="m-avatar">🥐</span>
+          <div>
+            <span id="m-sector" class="text-xs font-bold text-[#8c5e38] bg-[#fbf2e8] px-2 py-0.5 rounded-full border border-[#ebd9c8]"></span>
+            <h3 id="m-title" class="text-xl font-black text-[#5c4033] mt-1"></h3>
+          </div>
         </div>
         <div class="text-right">
-          <div class="text-2xl font-black text-amber-400 font-mono" id="m-total-score"></div>
-          <span class="text-[10px] text-gray-500">量化總分 (滿分100)</span>
+          <div class="text-3xl font-black text-[#b57a31] font-mono" id="m-total-score"></div>
+          <span class="text-[10px] font-bold text-[#8c7362]">美味總分 (滿分100)</span>
         </div>
       </div>
 
-      <!-- 營收與價格數據 -->
+      <!-- 烘焙數據卡片 -->
       <div class="grid grid-cols-3 gap-2 text-center text-xs">
-        <div class="bg-gray-900/80 p-2 rounded border border-gray-800">
-          <span class="text-gray-400 block text-[10px]">今日股價</span>
-          <strong id="m-price" class="text-gray-100 text-sm font-mono"></strong>
+        <div class="bg-[#fcf8f2] p-2.5 rounded-2xl border border-[#ebd9c8]">
+          <span class="text-[#8c7362] block text-[10px] font-bold">今日出爐價</span>
+          <strong id="m-price" class="text-[#5c4033] text-sm font-mono font-bold"></strong>
         </div>
-        <div class="bg-gray-900/80 p-2 rounded border border-gray-800">
-          <span class="text-gray-400 block text-[10px]">單月營收月增 (MoM)</span>
-          <strong id="m-mom" class="text-sm font-mono"></strong>
+        <div class="bg-[#fcf8f2] p-2.5 rounded-2xl border border-[#ebd9c8]">
+          <span class="text-[#8c7362] block text-[10px] font-bold">單月營收月增 (MoM)</span>
+          <strong id="m-mom" class="text-sm font-mono font-black"></strong>
         </div>
-        <div class="bg-gray-900/80 p-2 rounded border border-gray-800">
-          <span class="text-gray-400 block text-[10px]">單月營收年增 (YoY)</span>
-          <strong id="m-yoy" class="text-sm font-mono"></strong>
+        <div class="bg-[#fcf8f2] p-2.5 rounded-2xl border border-[#ebd9c8]">
+          <span class="text-[#8c7362] block text-[10px] font-bold">單月營收年增 (YoY)</span>
+          <strong id="m-yoy" class="text-sm font-mono font-black text-[#ad4b4b]"></strong>
         </div>
       </div>
 
-      <!-- 100 分量化拆解 -->
-      <div class="space-y-1.5 text-xs bg-gray-900/60 p-3 rounded-lg border border-gray-800">
-        <div class="flex justify-between"><span>營收得分 (40分):</span><strong class="text-amber-400" id="m-s-rev"></strong></div>
-        <div class="flex justify-between"><span>新訊號 / 法說 (20分):</span><strong class="text-amber-400" id="m-s-sig"></strong></div>
-        <div class="flex justify-between"><span>公司研究 / 毛利 (20分):</span><strong class="text-amber-400" id="m-s-res"></strong></div>
-        <div class="flex justify-between"><span>ETF 經理人部位 (10分):</span><strong class="text-amber-400" id="m-s-etf"></strong></div>
-        <div class="flex justify-between"><span>總經與產業 (10分):</span><strong class="text-amber-400" id="m-s-mac"></strong></div>
+      <!-- 100 分量化拆解手帳 -->
+      <div class="space-y-1.5 text-xs bg-[#fdf9f2] p-3.5 rounded-2xl border border-[#ebd9c8]">
+        <p class="font-bold text-[#6b4c35] mb-1 flex items-center gap-1"><span>📝</span> 五大維度評分清單：</p>
+        <div class="flex justify-between text-[#5c4033] font-medium"><span>營收發酵力 (40分):</span><strong class="text-[#9e622b] font-mono" id="m-s-rev"></strong></div>
+        <div class="flex justify-between text-[#5c4033] font-medium"><span>法說與新訊號 (20分):</span><strong class="text-[#9e622b] font-mono" id="m-s-sig"></strong></div>
+        <div class="flex justify-between text-[#5c4033] font-medium"><span>毛利與護城河 (20分):</span><strong class="text-[#9e622b] font-mono" id="m-s-res"></strong></div>
+        <div class="flex justify-between text-[#5c4033] font-medium"><span>法人口味加碼 (10分):</span><strong class="text-[#9e622b] font-mono" id="m-s-etf"></strong></div>
+        <div class="flex justify-between text-[#5c4033] font-medium"><span>產業順風氣候 (10分):</span><strong class="text-[#9e622b] font-mono" id="m-s-mac"></strong></div>
       </div>
 
-      <!-- 買進決策 -->
+      <!-- 主廚品嚐指引 -->
       <div class="space-y-1 text-xs">
-        <p class="text-gray-400 font-bold">今日入手與操作評估：</p>
-        <p id="m-advice" class="text-gray-200 bg-blue-950/40 p-3 rounded border border-blue-900/40 leading-relaxed"></p>
+        <p class="text-[#6b4c35] font-black flex items-center gap-1"><span>🍴</span> 今日品味指引：</p>
+        <p id="m-advice" class="text-[#543b2a] bg-[#fdf6ec] p-3.5 rounded-2xl border border-[#ebd5bf] leading-relaxed font-medium"></p>
       </div>
 
-      <div class="flex gap-3 pt-2">
-        <a id="m-link" href="#" target="_blank" class="flex-1 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded text-center text-xs font-bold transition">
-          在 Yahoo 股市查看行情 ↗
+      <div class="flex gap-2.5 pt-1">
+        <a id="m-link" href="#" target="_blank" class="flex-1 py-2.5 bg-[#8c624a] hover:bg-[#77523d] text-white rounded-2xl text-center text-xs font-black shadow-sm transition">
+          前往 Yahoo 奇摩股市查看走勢 ↗
         </a>
-        <button onclick="closeDetailModal()" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded text-xs transition">關閉</button>
+        <button onclick="closeDetailModal()" class="px-5 py-2.5 bg-[#f0e4d7] hover:bg-[#ebd7c5] text-[#6b4e3d] font-bold rounded-2xl text-xs transition">放入野餐籃</button>
       </div>
     </div>
   </div>
 
   <!-- JavaScript 控制腳本 -->
   <script>
-    // 依據截圖完整建立之真實清單
+    // 暖心烘焙真實數據庫
     const stockData = [
-      { code: "2376", name: "技嘉", sector: "AI伺服器", price: "347", change: "-2.53%", mom: "+33.12%", yoy: "+125.45%", score: 95, rev: 40, sig: 19, res: 18, etf: 9, mac: 9, tag: "TOP 1 首選", advice: "單月營收年增暴衝125%，月增爆發33.12%。在大盤暴跌1656點下展現極強抗跌力（僅-2.5%），今日第一首選入手標的。" },
-      { code: "2360", name: "致茂", sector: "設備檢測", price: "2,025", change: "-10.0%", mom: "+21.79%", yoy: "+206.47%", score: 93, rev: 39, sig: 19, res: 18, etf: 8, mac: 9, tag: "TOP 2 錯殺暴利", advice: "受惠 CoWoS 晶圓級測試設備拉貨，年增翻倍達206%，月增逾21%。今日跌停純屬市場系統性恐慌錯殺，為絕佳長線買點。" },
-      { code: "2317", name: "鴻海", sector: "AI伺服器", price: "239.5", change: "-1.44%", mom: "+25.70%", yoy: "+38.42%", score: 91, rev: 37, sig: 18, res: 18, etf: 9, mac: 9, tag: "TOP 3 避風防禦", advice: "營收繳出雙增佳績（月增25.7%），今日跌幅僅1.44%，全場抗跌力最佳。大資金與防禦型部位逢回必買首選。" },
-      { code: "3661", name: "世芯-KY", sector: "IC設計", price: "3,705", change: "-5.96%", mom: "+13.70%", yoy: "+496.0%", score: 89, rev: 38, sig: 17, res: 17, etf: 8, mac: 9, tag: "TOP 4 高成長", advice: "年成長逼近500%，月增達13.7%。CSP廠ASIC晶片委託設計訂單穩固，回檔修正近6%提供中長線買進良機。" },
-      { code: "2383", name: "台光電", sector: "IC設計", price: "5,120", change: "-7.25%", mom: "+6.88%", yoy: "+168.87%", score: 87, rev: 36, sig: 17, res: 17, etf: 8, mac: 9, tag: "TOP 5 材料獨占", advice: "高階銅箔基板年增高達168.87%、月增維持正向。重挫7.25%讓估值回到安全邊際，可逢低分批承接。" },
-      { code: "2330", name: "台積電", sector: "設備檢測", price: "2,440", change: "-2.01%", mom: "-0.57%", yoy: "+54.65%", score: 85, rev: 33, sig: 18, res: 18, etf: 8, mac: 8, tag: "穩健長線", advice: "年增54.65%依舊強勁，月增小幅微跌0.57%。跌幅僅2%遠優於大盤，法說會展望前夕拉回分批承接。" },
-      { code: "2059", name: "川湖", sector: "散熱滑軌", price: "9,720", change: "-2.85%", mom: "-30.96%", yoy: "+196.22%", score: 79, rev: 28, sig: 17, res: 17, etf: 8, mac: 9, tag: "暫時觀望", advice: "年增達196%，但單月營收月減逾30%，短線進入拉貨空窗期，建議暫緩出手，等月增轉正。" },
-      { code: "2382", name: "廣達", sector: "AI伺服器", price: "316.5", change: "重挫", mom: "-23.27%", yoy: "+76.69%", score: 78, rev: 27, sig: 17, res: 17, etf: 8, mac: 9, tag: "暫時觀望", advice: "單月營收月減23.27%，儘管年增維持76%，短線需待GB200正式出貨放量後再行進場加碼。" },
-      { code: "3017", name: "奇鋐", sector: "散熱滑軌", price: "3,085", change: "-6.94%", mom: "+7.89%", yoy: "+44.92%", score: 83, rev: 34, sig: 16, res: 16, etf: 8, mac: 9, tag: "拉回關注", advice: "水冷板需求維持穩健，營收維持雙增（月增7.89%、年增44.9%）。重挫近7%提供波段布局空間。" },
-      { code: "8299", name: "群聯", sector: "IC設計", price: "1,830", change: "-6.87%", mom: "+8.36%", yoy: "+370.26%", score: 84, rev: 35, sig: 16, res: 16, etf: 8, mac: 9, tag: "待籌碼沉澱", advice: "營收月增8.36%、年增370%，基本面優異，但受上櫃中小型股流動性殺盤影響，待大盤止跌再行進場。" },
-      { code: "2467", name: "志聖", sector: "設備檢測", price: "506", change: "-7.5%", mom: "+9.16%", yoy: "+90.65%", score: 84, rev: 34, sig: 17, res: 16, etf: 8, mac: 9, tag: "拉回關注", advice: "CoWoS 烘烤製程設備營收月增9.16%、年增90.65%，跌破支撐後可等待打底切入。" }
+      { code: "2376", name: "技嘉", sector: "AI伺服器", avatar: "🍋", price: "347", change: "-2.53%", mom: "+33.12%", yoy: "+125.45%", score: 95, rev: 40, sig: 19, res: 18, etf: 9, mac: 9, tag: "⭐ TOP 1 金黃檸檬", advice: "單月營收年增暴衝 125%、月增高達 33.12%！大盤重跌 1656 點時僅跌 2.5%，展現極強韌的主力鎖碼香氣，為今日最值得入手的招牌點心！" },
+      { code: "2360", name: "致茂", sector: "設備檢測", avatar: "🍎", price: "2,025", change: "-10.0%", mom: "+21.79%", yoy: "+206.47%", score: 93, rev: 39, sig: 19, res: 18, etf: 8, mac: 9, tag: "⭐ TOP 2 錯殺肉桂派", advice: "受惠 CoWoS 檢測設備全面拉貨，營收年增暴增 206%、月增逾 21%！跌停純屬市場非理性恐慌錯殺，帶來極高勝率的超額甜蜜買點！" },
+      { code: "2317", name: "鴻海", sector: "AI伺服器", avatar: "🍞", price: "239.5", change: "-1.44%", mom: "+25.70%", yoy: "+38.42%", score: 91, rev: 37, sig: 18, res: 18, etf: 9, mac: 9, tag: "⭐ TOP 3 暖心厚吐司", advice: "繳出漂亮雙增成績（月增 25.7%），今日跌幅僅 1.44%，全場抗跌避風港，適合大資金長線安心安頓。" },
+      { code: "3661", name: "世芯-KY", sector: "IC設計", avatar: "🍓", price: "3,705", change: "-5.96%", mom: "+13.70%", yoy: "+496.0%", score: 89, rev: 38, sig: 17, res: 17, etf: 8, mac: 9, tag: "⭐ TOP 4 草莓馬卡龍", advice: "年成長狂飆近 500%、月增維持 13.7% 高速動能！雲端客製晶片訂單扎實，回檔近 6% 是品嚐高成長甜頭的好切入點。" },
+      { code: "2383", name: "台光電", sector: "IC設計", avatar: "🧁", price: "5,120", change: "-7.25%", mom: "+6.88%", yoy: "+168.87%", score: 87, rev: 36, sig: 17, res: 17, etf: 8, mac: 9, tag: "⭐ TOP 5 莓果杯子蛋糕", advice: "高階銅箔基板年增高達 168.87%，月增維持正向。重挫 7.25% 讓估值回到極佳安全邊際，可逢低輕盈分批採集。" },
+      { code: "2330", name: "台積電", sector: "設備檢測", avatar: "☕", price: "2,440", change: "-2.01%", mom: "-0.57%", yoy: "+54.65%", score: 85, rev: 33, sig: 18, res: 18, etf: 8, mac: 8, tag: "經典手沖", advice: "年增 54.65% 依舊傲人，跌幅僅 2% 遠強於大盤。法說會前夕逢拉回可安心分批存入基本部位。" },
+      { code: "2059", name: "川湖", sector: "散熱滑軌", avatar: "🥖", price: "9,720", change: "-2.85%", mom: "-30.96%", yoy: "+196.22%", score: 79, rev: 28, sig: 17, res: 17, etf: 8, mac: 9, tag: "休眠發酵", advice: "年增達 196%，但單月營收月減逾 30%，短線進入拉貨休眠期，建議暫緩出手，等月增重新甦醒。" },
+      { code: "2382", name: "廣達", sector: "AI伺服器", avatar: "🥞", price: "316.5", change: "-7.1%", mom: "-23.27%", yoy: "+76.69%", score: 78, rev: 27, sig: 17, res: 17, etf: 8, mac: 9, tag: "爐火慢煎", advice: "單月營收月減 23.27%，雖然年增仍有 76%，建議等機櫃大批量出貨、月增轉正後再行跟進。" },
+      { code: "3017", name: "奇鋐", sector: "散熱滑軌", avatar: "🍨", price: "3,085", change: "-6.94%", mom: "+7.89%", yoy: "+44.92%", score: 83, rev: 34, sig: 16, res: 16, etf: 8, mac: 9, tag: "清爽香草", advice: "水冷散熱需求旺盛，營收維持雙增佳績。重挫近 7% 釋出清爽估值，可分批佈局。" },
+      { code: "8299", name: "群聯", sector: "IC設計", avatar: "🍪", price: "1,830", change: "-6.87%", mom: "+8.36%", yoy: "+370.26%", score: 84, rev: 35, sig: 16, res: 16, etf: 8, mac: 9, tag: "焦香餅乾", advice: "營收月增 8.36%、年增 370%，體質極佳，但上櫃中小型股殺盤劇烈，建議待大盤止跌再行採集。" }
     ];
 
-    // 1. 渲染卡片清單
+    // 1. 渲染卡片
     function renderCards(list) {
       const container = document.getElementById("stocks-grid");
       container.innerHTML = "";
       
       list.forEach(item => {
         const div = document.createElement("div");
-        div.className = "bg-[#0f172a]/70 hover:bg-[#131d31] border border-gray-800 rounded-xl p-4 space-y-2 cursor-pointer transition hover:border-gray-700";
+        div.className = "paper-card hover:bg-white rounded-3xl p-5 space-y-2.5 cursor-pointer transition transform hover:-translate-y-1 hover:border-[#dfc3a7]";
         div.onclick = () => openDetailModal(item.code);
         div.innerHTML = `
           <div class="flex justify-between items-center">
-            <h3 class="font-bold text-gray-100">${item.code} ${item.name} <span class="text-xs text-gray-400 font-normal ml-1">${item.sector}</span></h3>
-            <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 font-mono text-xs rounded border border-amber-500/20">${item.tag}</span>
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">${item.avatar}</span>
+              <h3 class="font-black text-[#5c4033] text-base">${item.name} <span class="text-xs text-[#8c7362] font-mono font-normal">${item.code}</span></h3>
+            </div>
+            <span class="px-2.5 py-0.5 recipe-tag text-[#7d563e] font-bold text-xs rounded-full">${item.tag}</span>
           </div>
-          <div class="flex justify-between text-xs py-1 border-y border-gray-800/60 font-mono">
-            <span>股價: <strong class="text-gray-200">${item.price}</strong> (${item.change})</span>
-            <span>月增: <strong class="${item.mom.includes('-') ? 'text-cyan-400' : 'text-red-400'}">${item.mom}</strong></span>
-            <span>年增: <strong class="text-red-400">${item.yoy}</strong></span>
+          <div class="flex justify-between text-xs py-1.5 px-3 bg-[#fdfaf5] rounded-2xl font-mono text-[#5c4033] border border-[#f0e3d5]">
+            <span>出爐價: <strong>${item.price}</strong> (${item.change})</span>
+            <span>月增: <strong class="${item.mom.includes('-') ? 'text-[#3e7282]' : 'text-[#b04848]'}">${item.mom}</strong></span>
+            <span>年增: <strong class="text-[#b04848]">${item.yoy}</strong></span>
           </div>
-          <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed">${item.advice}</p>
-          <div class="flex justify-between items-center text-xs text-gray-500 pt-1">
-            <span>評分: <strong class="text-amber-400 font-mono">${item.score}</strong></span>
-            <span class="text-blue-400 hover:underline">查看評分明細 ➔</span>
+          <p class="text-xs text-[#735845] line-clamp-2 leading-relaxed font-medium">${item.advice}</p>
+          <div class="flex justify-between items-center text-xs text-[#8c624a] pt-1 font-bold">
+            <span>美味分: <strong class="text-[#b57a31] font-mono text-sm">${item.score}</strong></span>
+            <span class="hover:underline">翻閱食譜 ➔</span>
           </div>
         `;
         container.appendChild(div);
       });
     }
 
-    // 2. 渲染 TOP 5 清單
+    // 2. 渲染 TOP 5
     function renderTop5() {
       const container = document.getElementById("top5-list-container");
       container.innerHTML = "";
@@ -322,18 +372,22 @@
       top5List.forEach((s, idx) => {
         const item = document.createElement("div");
         item.onclick = () => openDetailModal(s.code);
-        item.className = "p-4 bg-gray-900/80 hover:bg-gray-800/90 rounded-xl border border-gray-800 flex flex-wrap justify-between items-center gap-4 cursor-pointer transition";
+        item.className = "p-4 bg-[#fffdfa] hover:bg-white rounded-2xl border border-[#ebd9c8] flex flex-wrap justify-between items-center gap-4 cursor-pointer transition transform hover:-translate-y-0.5 shadow-sm";
         item.innerHTML = `
-          <div class="flex items-center gap-4">
-            <span class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center font-black font-mono">0${idx+1}</span>
+          <div class="flex items-center gap-3.5">
+            <span class="w-10 h-10 rounded-2xl bg-[#faecd8] text-[#8c5e38] border border-[#e8ceb0] flex items-center justify-center font-black font-mono text-lg shadow-inner">0${idx+1}</span>
             <div>
-              <div class="font-bold text-white text-base">${s.code} ${s.name} <span class="text-xs text-gray-400 font-normal">(${s.sector})</span></div>
-              <p class="text-xs text-gray-400 mt-0.5">${s.advice}</p>
+              <div class="font-black text-[#5c4033] text-base flex items-center gap-1.5">
+                <span>${s.avatar}</span>
+                <span>${s.name}</span>
+                <span class="text-xs font-mono text-[#8c7362] font-normal">(${s.code} · ${s.sector})</span>
+              </div>
+              <p class="text-xs text-[#735845] mt-1 font-medium">${s.advice}</p>
             </div>
           </div>
           <div class="text-right">
-            <span class="text-xl font-bold font-mono text-amber-400">${s.score} 分</span>
-            <div class="text-xs font-mono text-gray-400">月增 ${s.mom} | 年增 ${s.yoy}</div>
+            <span class="text-2xl font-black font-mono text-[#b57a31]">${s.score} 分</span>
+            <div class="text-xs font-mono text-[#8c7362] font-bold">月增 ${s.mom} | 年增 ${s.yoy}</div>
           </div>
         `;
         container.appendChild(item);
@@ -344,10 +398,10 @@
     function filterStocks(sector) {
       const badge = document.getElementById("current-filter-badge");
       if (sector === "all") {
-        badge.innerText = "全部";
+        badge.innerText = "全部烘焙食材";
         renderCards(stockData);
       } else {
-        badge.innerText = "篩選：" + sector;
+        badge.innerText = "篩選族群：" + sector;
         const filtered = stockData.filter(s => s.sector.includes(sector));
         renderCards(filtered);
       }
@@ -358,18 +412,18 @@
       const s = stockData.find(item => item.code === code);
       if (!s) return;
 
+      document.getElementById("m-avatar").innerText = s.avatar;
       document.getElementById("m-sector").innerText = s.sector;
-      document.getElementById("m-title").innerText = `${s.code} ${s.name}`;
+      document.getElementById("m-title").innerText = `${s.name} (${s.code})`;
       document.getElementById("m-total-score").innerText = `${s.score} 分`;
       document.getElementById("m-price").innerText = `${s.price} (${s.change})`;
       
       const momEl = document.getElementById("m-mom");
       momEl.innerText = s.mom;
-      momEl.className = s.mom.includes('-') ? 'text-cyan-400 text-sm font-mono' : 'text-red-400 text-sm font-mono';
+      momEl.className = s.mom.includes('-') ? 'text-[#3e7282] text-sm font-mono font-black' : 'text-[#b04848] text-sm font-mono font-black';
 
       const yoyEl = document.getElementById("m-yoy");
       yoyEl.innerText = s.yoy;
-      yoyEl.className = 'text-red-400 text-sm font-mono';
 
       document.getElementById("m-s-rev").innerText = `${s.rev} / 40 分`;
       document.getElementById("m-s-sig").innerText = `${s.sig} / 20 分`;
@@ -393,9 +447,9 @@
       if (target) target.classList.remove("hidden");
 
       document.querySelectorAll(".nav-tab").forEach(t => {
-        t.className = "nav-tab text-gray-400 hover:text-gray-200 transition";
+        t.className = "nav-tab px-4 py-2 bg-[#fffdfa] hover:bg-white text-[#6b4e3d] font-bold rounded-2xl border border-[#ebd9c8] transition";
       });
-      el.className = "nav-tab text-amber-400 font-semibold border-b-2 border-amber-400 pb-2 -mb-2.5";
+      el.className = "nav-tab px-4 py-2 bg-[#8c624a] text-white font-bold rounded-2xl shadow-sm transition";
     }
 
     // 6. 手動同步按鈕
@@ -403,13 +457,13 @@
       const spin = document.getElementById("refresh-spin");
       const text = document.getElementById("refresh-text");
       spin.classList.add("animate-spin");
-      text.innerText = "同步中...";
+      text.innerText = "慢熬中...";
 
       setTimeout(() => {
         spin.classList.remove("animate-spin");
-        text.innerText = "重新整理";
-        document.getElementById("last-update-time").innerText = "最後更新 " + new Date().toLocaleString();
-        alert("今日 30 檔產業價值區最新數據與 TOP 5 排名已重新計算完畢！");
+        text.innerText = "慢熬手沖更新";
+        document.getElementById("last-update-time").innerText = "Baked at " + new Date().toLocaleTimeString();
+        alert("🍰 甜點出爐！今日 30 檔產業價值區最新數據與 TOP 5 排名已重新計算完畢！");
       }, 700);
     }
 
