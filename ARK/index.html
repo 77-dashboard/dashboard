@@ -23,18 +23,18 @@
     }
     .bubble-gold {
       background: #eee6d8;
-      border: 2px dashed #b89358;
-      box-shadow: 0 3px 8px rgba(184, 147, 88, 0.12);
+      border: 2.5px dashed #b89358;
+      box-shadow: 0 4px 14px rgba(184, 147, 88, 0.16);
     }
     .bubble-green {
       background: #e4ebe0;
-      border: 2px dashed #6f8f63;
-      box-shadow: 0 3px 8px rgba(111, 143, 99, 0.12);
+      border: 2.5px dashed #6f8f63;
+      box-shadow: 0 4px 14px rgba(111, 143, 99, 0.16);
     }
     .bubble-blue {
       background: #e1e7ec;
-      border: 2px dashed #5e7e94;
-      box-shadow: 0 3px 8px rgba(94, 126, 148, 0.12);
+      border: 2.5px dashed #5e7e94;
+      box-shadow: 0 4px 14px rgba(94, 126, 148, 0.16);
     }
   </style>
 </head>
@@ -52,7 +52,7 @@
             <h1 class="text-xl font-black text-[#382b23] tracking-wide">方舟運算</h1>
             <span class="px-2.5 py-0.5 bg-[#dfd4c5] text-[#594233] text-xs font-bold rounded-full border border-[#cbbea9]">產業價值區</span>
           </div>
-          <p class="text-xs text-[#705c4e] mt-0.5">每日量化評分與台股基本面選股清單</p>
+          <p class="text-xs text-[#705c4e] mt-0.5">每日量化評分與台股基本面選股清單（30 檔完整追蹤）</p>
         </div>
       </div>
       <div class="flex items-center space-x-3 text-xs">
@@ -67,17 +67,55 @@
       </div>
     </header>
 
+    <!-- 個人資金與風控試算小工具 (全自訂，每個人都能算) -->
+    <section class="linen-card rounded-3xl p-5 space-y-3 bg-[#f2ece3]">
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#ded5cb] pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🧮</span>
+          <h2 class="text-sm font-black text-[#382b23]">個人資金與部位風控試算機</h2>
+          <span class="text-[11px] text-[#705c4e]">（輸入你的資金，系統自動換算各檔最多可買股數）</span>
+        </div>
+        <span class="text-xs font-bold text-[#b85c37] bg-[#faebe6] border border-[#f0c5b6] px-2.5 py-0.5 rounded-full">投資風險自負・持續記錄布局</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div>
+          <label class="block text-[#6e5847] font-bold mb-1">我的可動用資金 / 總預算 (新台幣)：</label>
+          <div class="relative">
+            <span class="absolute left-3 top-2 text-[#705c4e] font-bold">$</span>
+            <input type="number" id="user-capital" value="500000" step="10000" class="w-full bg-[#fcfaf7] border border-[#d8cfc4] rounded-xl py-1.5 pl-7 pr-3 text-sm font-mono text-[#382b23] focus:border-[#6b5343] outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-[#6e5847] font-bold mb-1">單檔最高風控上限比例 (%)：</label>
+          <select id="user-risk-pct" class="w-full bg-[#fcfaf7] border border-[#d8cfc4] rounded-xl py-2 px-3 text-xs font-bold text-[#382b23] focus:border-[#6b5343] outline-none">
+            <option value="0.05">保守型（單檔上限 5% 資金）</option>
+            <option value="0.10" selected>穩健型（單檔上限 10% 資金）</option>
+            <option value="0.15">積極型（單檔上限 15% 資金）</option>
+          </select>
+        </div>
+        <div class="flex items-end">
+          <button onclick="recalculateUserPosition()" class="w-full py-2 bg-[#6b5343] hover:bg-[#574335] text-white font-bold rounded-xl shadow-sm transition cursor-pointer">
+            🔄 依我的資金重新試算股數
+          </button>
+        </div>
+      </div>
+      <p class="text-[11px] text-[#806f62] leading-relaxed">
+        * 說明：系統依據你設定的單檔風控上限（如 50 萬 × 10% = 5 萬元上限），自動換算該檔股票在不超過風控水位下「最多可買進的建議股數（含零股）」。
+      </p>
+    </section>
+
     <!-- 5 大分頁導航列 -->
     <nav class="flex flex-wrap gap-2 text-sm">
-      <button onclick="switchTab('tab-overview', this)" class="nav-tab px-4 py-2 bg-[#f7f3ed] hover:bg-white text-[#523e30] font-bold rounded-2xl border border-[#d8cfc4] transition">📋 追蹤總覽</button>
-      <button onclick="switchTab('tab-top5', this)" class="nav-tab px-4 py-2 bg-[#6b5343] text-white font-bold rounded-2xl shadow-sm transition">⭐ 今日必買 TOP 5</button>
+      <button onclick="switchTab('tab-overview', this)" class="nav-tab px-4 py-2 bg-[#6b5343] text-white font-bold rounded-2xl shadow-sm transition">📋 追蹤總覽 (30檔)</button>
+      <button onclick="switchTab('tab-top5', this)" class="nav-tab px-4 py-2 bg-[#f7f3ed] hover:bg-white text-[#523e30] font-bold rounded-2xl border border-[#d8cfc4] transition">⭐ 今日必買 TOP 5</button>
       <button onclick="switchTab('tab-supplychain', this)" class="nav-tab px-4 py-2 bg-[#f7f3ed] hover:bg-white text-[#523e30] font-bold rounded-2xl border border-[#d8cfc4] transition">🗺️ 產業鏈地圖</button>
       <button onclick="switchTab('tab-macro', this)" class="nav-tab px-4 py-2 bg-[#f7f3ed] hover:bg-white text-[#523e30] font-bold rounded-2xl border border-[#d8cfc4] transition">⛅ 總經與盤面環境</button>
       <span class="ml-auto text-xs text-[#806f62] self-center font-mono" id="last-update-time">最後更新 2026/10/16 09:45</span>
     </nav>
 
     <!-- ==================== TAB 1: 追蹤總覽 ==================== -->
-    <div id="tab-overview" class="tab-panel hidden space-y-6">
+    <div id="tab-overview" class="tab-panel space-y-6">
       
       <!-- 今日大盤研判 -->
       <section class="linen-card rounded-3xl p-5 space-y-2 bg-[#eee8df]">
@@ -90,61 +128,67 @@
         </p>
       </section>
 
-      <!-- 產業評分泡泡 -->
+      <!-- 放大版產業評分泡泡 -->
       <section class="space-y-4">
         <div class="flex justify-between items-center px-1">
           <div class="flex items-center gap-2">
-            <span class="text-lg">🫧</span>
-            <h2 class="text-base font-black text-[#382b23]">核心產業評分泡泡（點擊泡泡篩選個股）</h2>
+            <span class="text-xl">🫧</span>
+            <h2 class="text-base font-black text-[#382b23]">核心產業評分泡泡（點擊泡泡篩選股票）</h2>
           </div>
-          <button onclick="filterStocks('all')" class="text-xs font-bold text-[#6b5343] hover:underline bg-[#e0d6c7] px-3 py-1 rounded-full transition">顯示全部股票</button>
+          <button onclick="filterStocks('all')" class="text-xs font-bold text-[#6b5343] hover:underline bg-[#e0d6c7] px-3.5 py-1.5 rounded-full transition cursor-pointer">顯示全部 30 檔股票</button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <!-- 泡泡 1：雲端與 AI 伺服器 -->
-          <div onclick="filterStocks('雲端伺服器')" class="linen-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
-            <div class="w-28 h-28 rounded-full bubble-gold flex flex-col items-center justify-center">
-              <span class="px-2 py-0.5 bg-[#a38048] text-white text-[9px] font-black rounded-full shadow-sm mb-1">受惠 TOP 1</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- 泡泡 1 -->
+          <div onclick="filterStocks('雲端伺服器')" class="linen-card cursor-pointer rounded-3xl p-7 flex flex-col items-center text-center space-y-3.5 transition transform hover:-translate-y-1 hover:border-[#b89358]">
+            <div class="w-36 h-36 rounded-full bubble-gold flex flex-col items-center justify-center transition transform hover:scale-105">
+              <span class="px-2.5 py-0.5 bg-[#a38048] text-white text-[10px] font-black rounded-full shadow-sm mb-1.5">受惠 TOP 1</span>
               <span class="text-xs font-bold text-[#5c4420]">雲端與 AI 伺服器</span>
-              <span class="text-2xl font-black text-[#6e5021]">95.2</span>
-              <span class="text-[9px] text-[#7a5e30]">70/30 權重評分</span>
+              <span class="text-3xl font-black text-[#6e5021] my-0.5 font-mono">95.2</span>
+              <span class="text-[10px] text-[#7a5e30]">70/30 權重評分</span>
             </div>
-            <p class="text-xs font-bold text-[#523d1d]">緯穎/技嘉雙雙年增倍增</p>
-            <span class="text-[11px] text-[#7d5c28] font-bold bg-[#e3d7c3] px-2.5 py-0.5 rounded-full">點擊查看個股 ➔</span>
+            <div>
+              <p class="text-sm font-black text-[#45331a]">緯穎 / 技嘉 營收雙雙翻倍</p>
+              <span class="text-xs text-[#7d5c28] font-bold mt-1 inline-block bg-[#e3d7c3] px-3 py-1 rounded-full">查看此族群 (7檔) ➔</span>
+            </div>
           </div>
 
-          <!-- 泡泡 2：半導體通路 -->
-          <div onclick="filterStocks('電子通路')" class="linen-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
-            <div class="w-28 h-28 rounded-full bubble-green flex flex-col items-center justify-center">
-              <span class="px-2 py-0.5 bg-[#5e7d54] text-white text-[9px] font-black rounded-full shadow-sm mb-1">受惠 TOP 2</span>
+          <!-- 泡泡 2 -->
+          <div onclick="filterStocks('電子通路')" class="linen-card cursor-pointer rounded-3xl p-7 flex flex-col items-center text-center space-y-3.5 transition transform hover:-translate-y-1 hover:border-[#6f8f63]">
+            <div class="w-36 h-36 rounded-full bubble-green flex flex-col items-center justify-center transition transform hover:scale-105">
+              <span class="px-2.5 py-0.5 bg-[#5e7d54] text-white text-[10px] font-black rounded-full shadow-sm mb-1.5">受惠 TOP 2</span>
               <span class="text-xs font-bold text-[#344d2d]">半導體與電子通路</span>
-              <span class="text-2xl font-black text-[#3d5a34]">93.5</span>
-              <span class="text-[9px] text-[#4b6b41]">70/30 權重評分</span>
+              <span class="text-3xl font-black text-[#3d5a34] my-0.5 font-mono">93.5</span>
+              <span class="text-[10px] text-[#4b6b41]">70/30 權重評分</span>
             </div>
-            <p class="text-xs font-bold text-[#324a29]">大聯大/聯強月增暴衝</p>
-            <span class="text-[11px] text-[#47663d] font-bold bg-[#d7e3d3] px-2.5 py-0.5 rounded-full">點擊查看個股 ➔</span>
+            <div>
+              <p class="text-sm font-black text-[#283d20]">大聯大 / 聯強 月增暴衝</p>
+              <span class="text-xs text-[#47663d] font-bold mt-1 inline-block bg-[#d7e3d3] px-3 py-1 rounded-full">查看此族群 (3檔) ➔</span>
+            </div>
           </div>
 
-          <!-- 泡泡 3：工控與記憶體 -->
-          <div onclick="filterStocks('記憶體與零組件')" class="linen-card cursor-pointer rounded-3xl p-6 flex flex-col items-center text-center space-y-3 transition transform hover:-translate-y-1">
-            <div class="w-28 h-28 rounded-full bubble-blue flex flex-col items-center justify-center">
-              <span class="px-2 py-0.5 bg-[#517085] text-white text-[9px] font-black rounded-full shadow-sm mb-1">受惠 TOP 3</span>
+          <!-- 泡泡 3 -->
+          <div onclick="filterStocks('記憶體與零組件')" class="linen-card cursor-pointer rounded-3xl p-7 flex flex-col items-center text-center space-y-3.5 transition transform hover:-translate-y-1 hover:border-[#5e7e94]">
+            <div class="w-36 h-36 rounded-full bubble-blue flex flex-col items-center justify-center transition transform hover:scale-105">
+              <span class="px-2.5 py-0.5 bg-[#517085] text-white text-[10px] font-black rounded-full shadow-sm mb-1.5">受惠 TOP 3</span>
               <span class="text-xs font-bold text-[#2a4557]">工控記憶體與零件</span>
-              <span class="text-2xl font-black text-[#31536b]">89.8</span>
-              <span class="text-[9px] text-[#416278]">70/30 權重評分</span>
+              <span class="text-3xl font-black text-[#31536b] my-0.5 font-mono">89.8</span>
+              <span class="text-[10px] text-[#416278]">70/30 權重評分</span>
             </div>
-            <p class="text-xs font-bold text-[#274052]">宜鼎年增飆破 535%</p>
-            <span class="text-[11px] text-[#395c73] font-bold bg-[#d4e0e8] px-2.5 py-0.5 rounded-full">點擊查看個股 ➔</span>
+            <div>
+              <p class="text-sm font-black text-[#1e3442]">宜鼎年增狂飆 535%</p>
+              <span class="text-xs text-[#395c73] font-bold mt-1 inline-block bg-[#d4e0e8] px-3 py-1 rounded-full">查看此族群 (6檔) ➔</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- 股票卡片清單 -->
+      <!-- 完整 30 檔股票卡片清單 -->
       <section class="space-y-4">
         <div class="flex justify-between items-center px-1">
           <div class="flex items-center gap-2">
             <h2 class="text-base font-black text-[#382b23]">今日價值區個股名單</h2>
-            <span id="current-filter-badge" class="px-2.5 py-0.5 bg-[#f7f3ed] border border-[#d8cfc4] text-[#635043] text-xs font-bold rounded-full">全部個股</span>
+            <span id="current-filter-badge" class="px-2.5 py-0.5 bg-[#f7f3ed] border border-[#d8cfc4] text-[#635043] text-xs font-bold rounded-full">全部 30 檔標的</span>
           </div>
           <span class="text-xs text-[#705c4e] font-medium">👉 點擊卡片彈出「100分量化拆解與買進建議」</span>
         </div>
@@ -155,14 +199,14 @@
     </div>
 
     <!-- ==================== TAB 2: 今日必買 TOP 5 (嚴格三欄對齊版) ==================== -->
-    <div id="tab-top5" class="tab-panel space-y-4">
+    <div id="tab-top5" class="tab-panel hidden space-y-4">
       <div class="linen-card rounded-3xl p-6 space-y-4">
         <div class="flex items-center justify-between border-b border-[#ded5cb] pb-3">
           <div class="flex items-center gap-2.5">
             <span class="text-2xl">🏆</span>
             <div>
               <h2 class="text-lg font-black text-[#382b23]">今日最值得入手 TOP 5 標的</h2>
-              <p class="text-xs text-[#6e5847]">結合 100 分基本面量化評分與自選風控部位建議</p>
+              <p class="text-xs text-[#6e5847]">依據當前資金規模動態試算最大安全買進股數</p>
             </div>
           </div>
           <span class="px-3 py-1 bg-[#e8ded2] text-[#6b4e37] text-xs font-bold rounded-full border border-[#d4c6b6]">最新強彈精選</span>
@@ -181,6 +225,8 @@
             <div onclick="openDetailModal('6669')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#9e6c3f] font-bold"><span>6669 緯穎</span><span>查看 ➔</span></div>
             <div onclick="openDetailModal('2376')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#9e6c3f] font-bold"><span>2376 技嘉</span><span>查看 ➔</span></div>
             <div onclick="openDetailModal('3706')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#9e6c3f] font-bold"><span>3706 神達</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('2356')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#9e6c3f] font-bold"><span>2356 英業達</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('2382')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#9e6c3f] font-bold"><span>2382 廣達</span><span>查看 ➔</span></div>
           </div>
         </div>
         <div class="linen-card rounded-3xl p-5 space-y-2">
@@ -188,20 +234,26 @@
           <div class="text-xs space-y-2 pt-2">
             <div onclick="openDetailModal('3702')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#496638] font-bold"><span>3702 大聯大</span><span>查看 ➔</span></div>
             <div onclick="openDetailModal('2347')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#496638] font-bold"><span>2347 聯強</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('3036')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#496638] font-bold"><span>3036 文曄</span><span>查看 ➔</span></div>
           </div>
         </div>
         <div class="linen-card rounded-3xl p-5 space-y-2">
-          <div class="text-[#87343b] text-xs font-black flex items-center gap-1"><span>💾</span> 03 工控與記憶體</div>
+          <div class="text-[#87343b] text-xs font-black flex items-center gap-1"><span>💾</span> 03 工控記憶體與檢測</div>
           <div class="text-xs space-y-2 pt-2">
             <div onclick="openDetailModal('5289')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#87343b] font-bold"><span>5289 宜鼎</span><span>查看 ➔</span></div>
-            <div onclick="openDetailModal('3042')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#87343b] font-bold"><span>3042 晶技</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('2360')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#87343b] font-bold"><span>2360 致茂</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('2330')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#87343b] font-bold"><span>2330 台積電</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('2404')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#87343b] font-bold"><span>2404 漢唐</span><span>查看 ➔</span></div>
           </div>
         </div>
         <div class="linen-card rounded-3xl p-5 space-y-2">
-          <div class="text-[#3a6170] text-xs font-black flex items-center gap-1"><span>🛡️</span> 04 防禦型金融與傳產</div>
+          <div class="text-[#3a6170] text-xs font-black flex items-center gap-1"><span>🛡️</span> 04 金融與防禦型傳產</div>
           <div class="text-xs space-y-2 pt-2">
             <div onclick="openDetailModal('2884')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#3a6170] font-bold"><span>2884 玉山金</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('2891')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#3a6170] font-bold"><span>2891 中信金</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('2890')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#3a6170] font-bold"><span>2890 永豐金</span><span>查看 ➔</span></div>
             <div onclick="openDetailModal('2606')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#3a6170] font-bold"><span>2606 裕民</span><span>查看 ➔</span></div>
+            <div onclick="openDetailModal('2618')" class="flex justify-between py-1.5 border-b border-[#e6ddd2] cursor-pointer hover:text-[#3a6170] font-bold"><span>2618 長榮航</span><span>查看 ➔</span></div>
           </div>
         </div>
       </div>
@@ -228,17 +280,17 @@
             <div class="text-[11px] text-[#7a6839] mt-1">強勢股優先獲利了結/換股</div>
           </div>
           <div class="bg-[#e3eae3] p-4 rounded-2xl border border-[#cbd5cb]">
-            <div class="text-[#456345] font-bold">策略建議</div>
-            <div class="text-2xl font-black text-[#4b6e4b] mt-1">參考風控股數</div>
-            <div class="text-[11px] text-[#4d6b4d] mt-1">小部位分批金字塔布局</div>
+            <div class="text-[#456345] font-bold">風控策略提醒</div>
+            <div class="text-2xl font-black text-[#4b6e4b] mt-1">持續記錄布局</div>
+            <div class="text-[11px] text-[#4d6b4d] mt-1">投資風險自負・分批布局</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 底部說明 -->
-    <footer class="linen-card rounded-3xl p-5 text-xs text-[#756254] space-y-1 text-center border-dashed">
-      <p>本網站內容為公開市場研究資訊整理，不構成任何形式之投資建議。投資人應依自身風險承受度獨立判斷。</p>
+    <!-- 底部聲明與警語 -->
+    <footer class="linen-card rounded-3xl p-5 text-xs text-[#756254] space-y-1.5 text-center border-dashed">
+      <p class="font-bold text-[#b85c37]">⚠️ 警語：本網站內容為公開數據分析整理，絕不構成任何招攬或投資買賣建議。投資人應獨立評估自身風險承受度，自負盈虧並持續記錄布局歷程。</p>
       <p><strong>台股量化評分規則：</strong>營收表現 40 分、新訊號與法說 20 分、公司研究與毛利 20 分、ETF法人動向 10 分、總經產業 10 分。</p>
     </footer>
 
@@ -276,8 +328,20 @@
         </div>
       </div>
 
+      <!-- 動態風控試算卡片 -->
+      <div class="bg-[#f0e9df] p-3 rounded-2xl border border-[#d4c6b6] text-xs space-y-1">
+        <div class="flex justify-between items-center">
+          <span class="font-bold text-[#5c4033]">依你當前資金換算風控部位：</span>
+          <strong id="m-calc-shares" class="text-[#966b2d] font-mono text-sm"></strong>
+        </div>
+        <div class="flex justify-between text-[11px] text-[#705c4e]">
+          <span>預計投入金額上限：</span>
+          <span id="m-calc-budget" class="font-mono font-bold"></span>
+        </div>
+      </div>
+
       <!-- 100 分量化拆解清單 -->
-      <div class="space-y-1.5 text-xs bg-[#eee8df] p-3.5 rounded-2xl border border-[#d8cfc4]">
+      <div class="space-y-1.5 text-xs bg-[#eee8df] p-3 rounded-2xl border border-[#d8cfc4]">
         <p class="font-bold text-[#523e30] mb-1">五大維度評分拆解：</p>
         <div class="flex justify-between text-[#382b23] font-medium"><span>營收表現 (40分滿分):</span><strong class="text-[#8a5b29] font-mono" id="m-s-rev"></strong></div>
         <div class="flex justify-between text-[#382b23] font-medium"><span>新訊號與法說 (20分滿分):</span><strong class="text-[#8a5b29] font-mono" id="m-s-sig"></strong></div>
@@ -288,8 +352,8 @@
 
       <!-- 操作評估 -->
       <div class="space-y-1 text-xs">
-        <p class="text-[#523e30] font-black">今日操作評估與參考部位：</p>
-        <p id="m-advice" class="text-[#3d2e24] bg-[#eae3d8] p-3.5 rounded-2xl border border-[#d8cfc4] leading-relaxed font-medium"></p>
+        <p class="text-[#523e30] font-black">今日基本面決策分析：</p>
+        <p id="m-advice" class="text-[#3d2e24] bg-[#eae3d8] p-3 rounded-2xl border border-[#d8cfc4] leading-relaxed font-medium"></p>
       </div>
 
       <div class="flex gap-2.5 pt-1">
@@ -303,20 +367,60 @@
 
   <!-- JavaScript 控制腳本 -->
   <script>
+    // 30 檔真實個股資料庫 (rawPrice 用於動態計算股數)
     const stockData = [
-      { code: "6669", name: "緯穎", sector: "雲端伺服器", price: "1,855", change: "-2.62%", mom: "+19.62%", yoy: "+99.99%", score: 96, rev: 40, sig: 19, res: 19, etf: 9, mac: 9, tag: "TOP 1 首選", position: "建議 2 股 (風控 53 股)", advice: "單月營收年增暴增 99.99%、月增 19.62% 表現極為強悍！今日逆勢小幅拉回，為反彈格局中最具爆發力之首選標的。高價股可依風控先建立 2 股零股部位。" },
-      { code: "3702", name: "大聯大", sector: "電子通路", price: "115.5", change: "0.0%", mom: "+54.39%", yoy: "+146.49%", score: 94, rev: 39, sig: 18, res: 19, etf: 9, mac: 9, tag: "TOP 2 黑馬", position: "建議 24 股 (風控 864 股)", advice: "單月營收月增暴衝 54.39%、年增暴衝 146.49%！半導體與 AI 零組件拉貨潮全面湧入，目前在 115.5 平盤附近整理，基期低且兼具成長性。" },
-      { code: "2376", name: "技嘉", sector: "雲端伺服器", price: "355.5", change: "+2.45%", mom: "+33.12%", yoy: "+125.45%", score: 93, rev: 38, sig: 18, res: 19, etf: 9, mac: 9, tag: "TOP 3 強勢", position: "建議 15 股 (風控 281 股)", advice: "單月營收年增 125%、月增 33.12%，隨大盤上漲 +2.45%，主力籌碼鎖碼最穩。建議逢小回檔依風控布局約 15 股。" },
-      { code: "3706", name: "神達", sector: "雲端伺服器", price: "82.6", change: "+1.35%", mom: "+39.50%", yoy: "+88.65%", score: 91, rev: 37, sig: 18, res: 18, etf: 9, mac: 9, tag: "TOP 4 衝刺", position: "建議 19 股 (風控 1210 股)", advice: "單月營收月增高達 39.5%、年增逼近 90%！受惠美系客戶大舉採購 AI 伺服器機櫃，股價僅 82.6 元，性價比極高。" },
-      { code: "5289", name: "宜鼎", sector: "記憶體與零組件", price: "1,185", change: "+6.28%", mom: "+0.38%", yoy: "+535.71%", score: 89, rev: 36, sig: 18, res: 18, etf: 8, mac: 9, tag: "TOP 5 年增王", position: "建議 6 股 (風控 84 股)", advice: "年增率飆出全場最高的 535.71%！Edge AI 與工控記憶體拉貨超乎預期，今日大漲 6.28% 成為指標股。建議依風控持有約 6 股。" },
-      { code: "2347", name: "聯強", sector: "電子通路", price: "103.5", change: "+0.98%", mom: "+21.69%", yoy: "+158.67%", score: 88, rev: 36, sig: 17, res: 17, etf: 9, mac: 9, tag: "穩健高息", position: "建議 11 股 (風控 973 股)", advice: "單月營收月增 21.69%、年增達 158.67%，高股息與防禦資金進駐，走勢穩健。" },
-      { code: "2356", name: "英業達", sector: "雲端伺服器", price: "58.9", change: "+2.26%", mom: "+18.46%", yoy: "+62.87%", score: 86, rev: 34, sig: 17, res: 17, etf: 9, mac: 9, tag: "低檔轉強", position: "建議 40 股 (風控 1705 股)", advice: "營收月增 18.46%、年增 62.87%，低價伺服器代工廠開始補漲，今日強漲 2.26%。" },
-      { code: "2382", name: "廣達", sector: "雲端伺服器", price: "320.5", change: "+1.26%", mom: "-23.27%", yoy: "+76.69%", score: 80, rev: 28, sig: 17, res: 17, etf: 9, mac: 9, tag: "位階低檔", position: "建議 11 股 (風控 312 股)", advice: "年增 76.69%，但月增因拉貨期程短暫月減 23%，今日反彈 1.26%，低檔適合長線分批布局 11 股。" },
-      { code: "2884", name: "玉山金", sector: "金融防禦", price: "49.3", change: "+1.02%", mom: "+12.30%", yoy: "+19.29%", score: 82, rev: 31, sig: 16, res: 17, etf: 9, mac: 9, tag: "防禦首選", position: "建議 24 股 (風控 2048 股)", advice: "營收月增 12.3%、年增 19.29%，大盤震盪時最佳防禦資金停泊港。" },
-      { code: "2474", name: "可成", sector: "其他零組件", price: "196.5", change: "+0.77%", mom: "+2.49%", yoy: "-34.19%", score: 68, rev: 22, sig: 15, res: 15, etf: 8, mac: 8, tag: "減碼觀望", position: "建議 34 股 (風控 510 股)", advice: "單月營收年增衰退 34.19%，動能轉弱，不列入今日優先加碼名單。" }
+      { code: "6669", name: "緯穎", sector: "雲端伺服器", rawPrice: 1855, price: "1,855", change: "-2.62%", mom: "+19.62%", yoy: "+99.99%", score: 96, rev: 40, sig: 19, res: 19, etf: 9, mac: 9, tag: "TOP 1 首選", advice: "單月營收年增暴增 99.99%、月增 19.62% 表現極為強悍！今日逆勢小幅拉回，為反彈格局中最具爆發力之首選標的。" },
+      { code: "3702", name: "大聯大", sector: "電子通路", rawPrice: 115.5, price: "115.5", change: "0.0%", mom: "+54.39%", yoy: "+146.49%", score: 94, rev: 39, sig: 18, res: 19, etf: 9, mac: 9, tag: "TOP 2 黑馬", advice: "單月營收月增暴衝 54.39%、年增暴衝 146.49%！半導體與 AI 零組件拉貨潮全面湧入，目前在 115.5 平盤附近整理，基期低且兼具成長性。" },
+      { code: "2376", name: "技嘉", sector: "雲端伺服器", rawPrice: 355.5, price: "355.5", change: "+2.45%", mom: "+33.12%", yoy: "+125.45%", score: 93, rev: 38, sig: 18, res: 19, etf: 9, mac: 9, tag: "TOP 3 強勢", advice: "單月營收年增 125%、月增 33.12%，隨大盤上漲 +2.45%，主力籌碼鎖碼最穩。建議逢小回檔依風控分批承接。" },
+      { code: "3706", name: "神達", sector: "雲端伺服器", rawPrice: 82.6, price: "82.6", change: "+1.35%", mom: "+39.50%", yoy: "+88.65%", score: 91, rev: 37, sig: 18, res: 18, etf: 9, mac: 9, tag: "TOP 4 衝刺", advice: "單月營收月增高達 39.5%、年增逼近 90%！受惠美系客戶大舉採購 AI 伺服器機櫃，股價僅 82.6 元，性價比極高。" },
+      { code: "5289", name: "宜鼎", sector: "記憶體與零組件", rawPrice: 1185, price: "1,185", change: "+6.28%", mom: "+0.38%", yoy: "+535.71%", score: 89, rev: 36, sig: 18, res: 18, etf: 8, mac: 9, tag: "TOP 5 年增王", advice: "年增率飆出全場最高的 535.71%！Edge AI 與工控記憶體拉貨超乎預期，今日大漲 6.28% 成為指標股。" },
+      { code: "2347", name: "聯強", sector: "電子通路", rawPrice: 103.5, price: "103.5", change: "+0.98%", mom: "+21.69%", yoy: "+158.67%", score: 88, rev: 36, sig: 17, res: 17, etf: 9, mac: 9, tag: "穩健高息", advice: "單月營收月增 21.69%、年增達 158.67%，高股息與防禦資金進駐，走勢穩健。" },
+      { code: "2356", name: "英業達", sector: "雲端伺服器", rawPrice: 58.9, price: "58.9", change: "+2.26%", mom: "+18.46%", yoy: "+62.87%", score: 86, rev: 34, sig: 17, res: 17, etf: 9, mac: 9, tag: "低檔轉強", advice: "營收月增 18.46%、年增 62.87%，低價伺服器代工廠開始補漲，今日強漲 2.26%。" },
+      { code: "2360", name: "致茂", sector: "半導體檢測", rawPrice: 2025, price: "2,025", change: "-10.0%", mom: "+21.79%", yoy: "+206.47%", score: 92, rev: 39, sig: 18, res: 18, etf: 8, mac: 9, tag: "錯殺超額", advice: "CoWoS 測試設備單月營收年增翻倍達 206%，跌停純屬市場錯殺，具備極佳的反彈修復彈性。" },
+      { code: "2330", name: "台積電", sector: "半導體檢測", rawPrice: 2440, price: "2,440", change: "-2.01%", mom: "-0.57%", yoy: "+54.65%", score: 87, rev: 34, sig: 18, res: 19, etf: 9, mac: 7, tag: "權值核心", advice: "年增 54.65% 依舊傲人，跌幅僅 2% 遠強於大盤。法說會前夕逢拉回可安心分批存入基本部位。" },
+      { code: "3661", name: "世芯-KY", sector: "IC設計與材料", rawPrice: 3705, price: "3,705", change: "-5.96%", mom: "+13.70%", yoy: "+496.0%", score: 88, rev: 37, sig: 17, res: 17, etf: 8, mac: 9, tag: "ASIC龍頭", advice: "年增逼近 500%、月增 13.7% 高速成長！客製化晶片訂單明確，拉回提供高成長股之切入點。" },
+      { code: "2383", name: "台光電", sector: "IC設計與材料", rawPrice: 5120, price: "5,120", change: "-7.25%", mom: "+6.88%", yoy: "+168.87%", score: 85, rev: 35, sig: 16, res: 17, etf: 8, mac: 9, tag: "材料獨占", advice: "高階銅箔基板年增高達 168.87%，月增維持正向。重挫回測均線後估值回到合理邊界。" },
+      { code: "2382", name: "廣達", sector: "雲端伺服器", rawPrice: 320.5, price: "320.5", change: "+1.26%", mom: "-23.27%", yoy: "+76.69%", score: 80, rev: 28, sig: 17, res: 17, etf: 9, mac: 9, tag: "位階低檔", advice: "年增 76.69%，但月增因拉貨期程短暫月減 23%，今日反彈 1.26%，低檔適合長線分批布局。" },
+      { code: "2884", name: "玉山金", sector: "金融防禦", rawPrice: 49.3, price: "49.3", change: "+1.02%", mom: "+12.30%", yoy: "+19.29%", score: 82, rev: 31, sig: 16, res: 17, etf: 9, mac: 9, tag: "防禦首選", advice: "營收月增 12.3%、年增 19.29%，大盤震盪時最佳防禦資金停泊港。" },
+      { code: "2317", name: "鴻海", sector: "雲端伺服器", rawPrice: 239.5, price: "239.5", change: "-1.44%", mom: "+25.70%", yoy: "+38.42%", score: 89, rev: 36, sig: 18, res: 17, etf: 9, mac: 9, tag: "大型權值", advice: "營收月增 25.7%、年增 38.42%，GB200 垂直整合優勢明確，回檔承接買盤扎實。" },
+      { code: "3017", name: "奇鋐", sector: "記憶體與零組件", rawPrice: 3085, price: "3,085", change: "-6.94%", mom: "+7.89%", yoy: "+44.92%", score: 83, rev: 34, sig: 16, res: 16, etf: 8, mac: 9, tag: "水冷散熱", advice: "水冷散熱需求旺盛，營收維持雙增佳績。重挫近 7% 釋出合理估值，可分批布局。" },
+      { code: "8299", name: "群聯", sector: "IC設計與材料", rawPrice: 1830, price: "1,830", change: "-6.87%", mom: "+8.36%", yoy: "+370.26%", score: 84, rev: 35, sig: 16, res: 16, etf: 8, mac: 9, tag: "待籌碼沉澱", advice: "營收月增 8.36%、年增 370%，體質極佳，但上櫃中小型股殺盤劇烈，建議待大盤止跌再行進場。" },
+      { code: "2357", name: "華碩", sector: "雲端伺服器", rawPrice: 991, price: "991", change: "+1.64%", mom: "+2.41%", yoy: "+17.73%", score: 81, rev: 30, sig: 16, res: 17, etf: 9, mac: 9, tag: "AI PC轉機", advice: "營收月增 2.41%、年增 17.73%，AI 伺服器與 PC 雙引擎拉貨，股價重返千元邊緣。" },
+      { code: "2404", name: "漢唐", sector: "半導體檢測", rawPrice: 1100, price: "1,100", change: "-0.45%", mom: "-13.03%", yoy: "+12.56%", score: 79, rev: 27, sig: 16, res: 18, etf: 9, mac: 9, tag: "無塵室龍頭", advice: "在手訂單能見度直達後年，高殖利率保護，短線因營收認列月份差異小幅月減。" },
+      { code: "3042", name: "晶技", sector: "記憶體與零組件", rawPrice: 190, price: "190", change: "+0.26%", mom: "+0.04%", yoy: "+14.60%", score: 78, rev: 28, sig: 16, res: 16, etf: 9, mac: 9, tag: "石英元件", advice: "車用與網通石英震盪器拉貨穩定，營收穩健小增，防禦性極高。" },
+      { code: "6139", name: "亞翔", sector: "半導體檢測", rawPrice: 690, price: "690", change: "0.0%", mom: "-2.92%", yoy: "+5.97%", score: 75, rev: 25, sig: 16, res: 16, etf: 9, mac: 9, tag: "廠務工程", advice: "海內外半導體廠建廠訂單滿手，月營收小幅波動，維持健康持股觀察。" },
+      { code: "2891", name: "中信金", sector: "金融防禦", rawPrice: 74, price: "74.0", change: "+1.51%", mom: "+1.80%", yoy: "+15.40%", score: 81, rev: 29, sig: 16, res: 17, etf: 10, mac: 9, tag: "高息金控", advice: "獲利續創歷史同期新高，高股息 ETF 與法人長線買盤必備之核心持股。" },
+      { code: "2890", name: "永豐金", sector: "金融防禦", rawPrice: 45.6, price: "45.6", change: "0.0%", mom: "-16.01%", yoy: "+29.84%", score: 76, rev: 25, sig: 16, res: 16, etf: 10, mac: 9, tag: "銀行獲利佳", advice: "單月營收年增近 30%，但月增受交易天數影響短暫下滑，防禦性質強。" },
+      { code: "2606", name: "裕民", sector: "金融防禦", rawPrice: 76.5, price: "76.5", change: "+1.30%", mom: "+3.83%", yoy: "+25.68%", score: 79, rev: 29, sig: 16, res: 16, etf: 9, mac: 9, tag: "散裝航運", advice: "BDI 散裝運價指數回溫，單月營收月增 3.8%、年增 25.68%，高殖利率護體。" },
+      { code: "2618", name: "長榮航", sector: "金融防禦", rawPrice: 43.9, price: "43.9", change: "+1.04%", mom: "-9.36%", yoy: "+32.86%", score: 77, rev: 26, sig: 16, res: 17, etf: 9, mac: 9, tag: "客貨運雙旺", advice: "客運載客率維持高檔、AI 伺服器空運急單挹注，年增維持 32.86% 雙位數增長。" },
+      { code: "8069", name: "元太", sector: "記憶體與零組件", rawPrice: 157, price: "157", change: "+7.17%", mom: "+4.85%", yoy: "+13.54%", score: 83, rev: 30, sig: 17, res: 17, etf: 10, mac: 9, tag: "電子紙龍頭", advice: "彩色電子貨架標籤（ESL）需求回溫，今日股價大漲 +7.17%，突破整理平台。" },
+      { code: "2474", name: "可成", sector: "記憶體與零組件", rawPrice: 196.5, price: "196.5", change: "+0.77%", mom: "+2.49%", yoy: "-34.19%", score: 68, rev: 22, sig: 15, res: 15, etf: 8, mac: 8, tag: "減碼觀望", advice: "單月營收年增衰退 34.19%，動能轉弱，不列入今日優先加碼名單。" },
+      { code: "2059", name: "川湖", sector: "記憶體與零組件", rawPrice: 9720, price: "9,720", change: "-2.85%", mom: "-30.96%", yoy: "+196.22%", score: 79, rev: 28, sig: 17, res: 17, etf: 8, mac: 9, tag: "拉回整理", advice: "年增達 196%，但單月營收月減逾 30%，短線進入拉貨空窗期，建議暫緩出手。" },
+      { code: "2395", name: "研華", sector: "記憶體與零組件", rawPrice: 698, price: "698", change: "-2.24%", mom: "+3.16%", yoy: "+73.14%", score: 82, rev: 31, sig: 17, res: 17, etf: 8, mac: 9, tag: "工業電腦", advice: "工業邊緣運算營收年增 73.14%、月增 3.16%，基本面觸底回溫跡象明確。" },
+      { code: "5871", name: "中租-KY", sector: "金融防禦", rawPrice: 108.5, price: "108.5", change: "0.0%", mom: "+0.28%", yoy: "+2.53%", score: 72, rev: 24, sig: 15, res: 16, etf: 8, mac: 9, tag: "租賃收息", advice: "租賃放款動能平緩，高殖利率提供底部防禦支撐，適合長期領息。" },
+      { code: "1476", name: "儒鴻", sector: "金融防禦", rawPrice: 327, price: "327", change: "+0.93%", mom: "+5.96%", yoy: "+8.28%", score: 74, rev: 26, sig: 15, res: 16, etf: 8, mac: 9, tag: "紡織龍頭", advice: "成衣下游庫存去化完畢，美系大客戶訂單平穩回流，營收月增 5.96%。" }
     ];
 
-    // 1. 渲染卡片清單
+    // 動態計算最大安全股數
+    function calculateMaxShares(price) {
+      const capital = parseFloat(document.getElementById("user-capital").value) || 500000;
+      const riskPct = parseFloat(document.getElementById("user-risk-pct").value) || 0.10;
+      const maxBudget = capital * riskPct;
+      const shares = Math.floor(maxBudget / price);
+      return {
+        shares: shares > 0 ? shares : 1, // 最少可買 1 股零股
+        maxBudget: Math.round(maxBudget)
+      };
+    }
+
+    // 重新試算全部
+    function recalculateUserPosition() {
+      renderCards(stockData);
+      renderTop5();
+      alert("已根據你的資金規模重新試算所有標的之風控股數！");
+    }
+
+    // 1. 渲染卡片清單 (無個人股數)
     function renderCards(list) {
       const container = document.getElementById("stocks-grid");
       container.innerHTML = "";
@@ -345,13 +449,14 @@
       });
     }
 
-    // 2. 渲染 TOP 5 (嚴格三欄對齊版)
+    // 2. 渲染 TOP 5 (根據當前輸入的資金動態顯示最多買幾股)
     function renderTop5() {
       const container = document.getElementById("top5-list-container");
       container.innerHTML = "";
       const top5List = stockData.slice(0, 5);
 
       top5List.forEach((s, idx) => {
+        const pos = calculateMaxShares(s.rawPrice);
         const item = document.createElement("div");
         item.onclick = () => openDetailModal(s.code);
         item.className = "p-4 md:p-5 bg-[#f7f3ed] hover:bg-white rounded-2xl border border-[#d8cfc4] flex items-center justify-between gap-4 cursor-pointer transition transform hover:-translate-y-0.5 shadow-sm";
@@ -361,17 +466,19 @@
             0${idx+1}
           </div>
 
-          <!-- 中欄：股票資訊與詳細解說 (佔滿剩餘寬度) -->
+          <!-- 中欄：股票資訊與動態風控股數 -->
           <div class="flex-1 min-w-0 pr-2">
             <div class="flex items-center gap-2 flex-wrap">
               <span class="font-black text-[#382b23] text-base tracking-wide">${s.name}</span>
               <span class="text-xs font-mono text-[#756254]">(${s.code} · ${s.sector})</span>
-              <span class="text-[11px] font-bold bg-[#e3d8cb] text-[#594233] px-2 py-0.5 rounded-full border border-[#cfc1b0]">${s.position}</span>
+              <span class="text-[11px] font-bold bg-[#e3d8cb] text-[#594233] px-2 py-0.5 rounded-full border border-[#cfc1b0]">
+                最多安全買進：${pos.shares} 股 (上限約 $${pos.maxBudget.toLocaleString()})
+              </span>
             </div>
             <p class="text-xs text-[#544336] mt-1 leading-relaxed font-medium">${s.advice}</p>
           </div>
 
-          <!-- 右欄：固定寬度、靠右對齊的分數與數據 (絕不跑版) -->
+          <!-- 右欄：固定寬度、靠右對齊的分數與數據 -->
           <div class="flex-shrink-0 w-36 text-right border-l border-[#ded5cb] pl-3">
             <div class="text-2xl font-black font-mono text-[#966b2d] leading-none mb-1.5">
               ${s.score} <span class="text-xs font-sans text-[#756254] font-bold">分</span>
@@ -390,11 +497,11 @@
     function filterStocks(sector) {
       const badge = document.getElementById("current-filter-badge");
       if (sector === "all") {
-        badge.innerText = "全部個股";
+        badge.innerText = "全部 30 檔標的";
         renderCards(stockData);
       } else {
-        badge.innerText = "篩選產業：" + sector;
         const filtered = stockData.filter(s => s.sector.includes(sector));
+        badge.innerText = `篩選族群：${sector} (${filtered.length} 檔)`;
         renderCards(filtered);
       }
     }
@@ -403,6 +510,8 @@
     function openDetailModal(code) {
       const s = stockData.find(item => item.code === code);
       if (!s) return;
+
+      const pos = calculateMaxShares(s.rawPrice);
 
       document.getElementById("m-sector").innerText = s.sector;
       document.getElementById("m-title").innerText = `${s.name} (${s.code})`;
@@ -416,12 +525,15 @@
       const yoyEl = document.getElementById("m-yoy");
       yoyEl.innerText = s.yoy;
 
+      document.getElementById("m-calc-shares").innerText = `建議最多可買 ${pos.shares} 股（零股或張）`;
+      document.getElementById("m-calc-budget").innerText = `$${pos.maxBudget.toLocaleString()} 元（不超過風控上限）`;
+
       document.getElementById("m-s-rev").innerText = `${s.rev} / 40 分`;
       document.getElementById("m-s-sig").innerText = `${s.sig} / 20 分`;
       document.getElementById("m-s-res").innerText = `${s.res} / 20 分`;
       document.getElementById("m-s-etf").innerText = `${s.etf} / 10 分`;
       document.getElementById("m-s-mac").innerText = `${s.mac} / 10 分`;
-      document.getElementById("m-advice").innerText = `${s.advice} 【風控配置建議：${s.position}】`;
+      document.getElementById("m-advice").innerText = `${s.advice} 【風控提醒：投資風險自負，請嚴格執行分批布局與資金分散紀律。】`;
       document.getElementById("m-link").href = `https://tw.stock.yahoo.com/quote/${s.code}.TW`;
 
       document.getElementById("detail-modal").classList.remove("hidden");
@@ -454,7 +566,7 @@
         spin.classList.remove("animate-spin");
         text.innerText = "手動同步數據";
         document.getElementById("last-update-time").innerText = "最後更新 " + new Date().toLocaleTimeString();
-        alert("今日強彈大盤與最新 TOP 5 數據已同步更新！");
+        alert("今日 30 檔最新數據已全部同步！");
       }, 700);
     }
 
