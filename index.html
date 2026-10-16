@@ -57,13 +57,13 @@
             <h1 class="text-xl font-black text-[#382b23] tracking-wide">方舟運算</h1>
             <span class="px-2.5 py-0.5 bg-[#dfd4c5] text-[#594233] text-xs font-bold rounded-full border border-[#cbbea9]">產業價值區</span>
           </div>
-          <p class="text-xs text-[#705c4e] mt-0.5">即時行情校正與基本面量化選股</p>
+          <p class="text-xs text-[#705c4e] mt-0.5">即時行情自動校正 ｜ 基本面量化選股</p>
         </div>
       </div>
       <div class="flex items-center space-x-3 text-xs">
         <div id="market-status-chip" class="px-3 py-1.5 bg-[#e3ebe0] text-[#3b6e3b] border border-[#c4d6bf] rounded-full font-bold flex items-center gap-1.5">
-          <span>盤面連線</span>
-          <span class="font-mono" id="market-status-text">即時監控中</span>
+          <span>行情連線</span>
+          <span class="font-mono" id="market-status-text">連線正常</span>
         </div>
         <button onclick="fetchRealtimeQuotes()" class="px-3.5 py-1.5 bg-[#6b5343] hover:bg-[#574335] text-[#f7f3ed] font-bold rounded-full shadow-sm transition flex items-center gap-1.5 cursor-pointer">
           <svg id="refresh-spin" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
@@ -78,7 +78,7 @@
         <div class="flex items-center gap-2">
           <span class="text-xl">🧮</span>
           <h2 class="text-sm font-black text-[#382b23]">個人資金與部位風控試算機</h2>
-          <span class="text-[11px] text-[#705c4e]">（輸入資金，系統以【當下最新成交價】自動換算最多可買股數）</span>
+          <span class="text-[11px] text-[#705c4e]">（系統以【當前最新真實成交價】自動換算最多安全買進股數）</span>
         </div>
         <span class="text-xs font-bold text-[#b85c37] bg-[#faebe6] border border-[#f0c5b6] px-2.5 py-0.5 rounded-full">動態即時計算・風險自負</span>
       </div>
@@ -106,7 +106,7 @@
         </div>
       </div>
       <p class="text-[11px] text-[#806f62] leading-relaxed">
-        * 說明：無論何時開啟本頁，點擊上方按鈕即可校正為市場最新即時價格並換算買進股數。
+        * 說明：打開本頁時會自動向市場抓取最新行情，點擊上方按鈕亦可立即手動校正股價與換算股數。
       </p>
     </section>
 
@@ -114,8 +114,7 @@
     <nav class="flex flex-wrap gap-2 text-sm">
       <button onclick="switchTab('tab-overview', this)" class="nav-tab px-4 py-2 bg-[#6b5343] text-white font-bold rounded-2xl shadow-sm transition">📋 追蹤總覽</button>
       <button onclick="switchTab('tab-top5', this)" class="nav-tab px-4 py-2 bg-[#f7f3ed] hover:bg-white text-[#523e30] font-bold rounded-2xl border border-[#d8cfc4] transition">⭐ 今日必買 TOP 5</button>
-      <button onclick="switchTab('tab-supplychain', this)" class="nav-tab px-4 py-2 bg-[#f7f3ed] hover:bg-white text-[#523e30] font-bold rounded-2xl border border-[#d8cfc4] transition">🗺️ 產業鏈地圖</button>
-      <span class="ml-auto text-xs text-[#806f62] self-center font-mono" id="last-update-time">行情校正中...</span>
+      <span class="ml-auto text-xs text-[#806f62] self-center font-mono" id="last-update-time">行情更新中...</span>
     </nav>
 
     <!-- ==================== TAB 1: 追蹤總覽 ==================== -->
@@ -135,7 +134,7 @@
           <div onclick="filterStocks('伺服器代工')" class="linen-card cursor-pointer rounded-3xl p-5 flex flex-col items-center text-center space-y-2 transition transform hover:-translate-y-1 hover:border-[#b89358]">
             <div class="w-24 h-24 rounded-full bubble-gold flex flex-col items-center justify-center">
               <span class="text-[10px] font-bold text-[#5c4420]">AI 伺服器</span>
-              <span class="text-xl font-black text-[#6e5021] font-mono">主流</span>
+              <span class="text-xl font-black text-[#6e5021] font-mono">核心主流</span>
             </div>
             <p class="text-xs font-black text-[#45331a]">技嘉/緯穎/廣達</p>
           </div>
@@ -143,7 +142,7 @@
           <div onclick="filterStocks('通路與IC')" class="linen-card cursor-pointer rounded-3xl p-5 flex flex-col items-center text-center space-y-2 transition transform hover:-translate-y-1 hover:border-[#6f8f63]">
             <div class="w-24 h-24 rounded-full bubble-green flex flex-col items-center justify-center">
               <span class="text-[10px] font-bold text-[#344d2d]">IC 與通路</span>
-              <span class="text-xl font-black text-[#3d5a34] font-mono">成長</span>
+              <span class="text-xl font-black text-[#3d5a34] font-mono">爆發黑馬</span>
             </div>
             <p class="text-xs font-black text-[#283d20]">世芯/文曄/群聯</p>
           </div>
@@ -151,7 +150,7 @@
           <div onclick="filterStocks('晶圓與設備')" class="linen-card cursor-pointer rounded-3xl p-5 flex flex-col items-center text-center space-y-2 transition transform hover:-translate-y-1 hover:border-[#5e7e94]">
             <div class="w-24 h-24 rounded-full bubble-blue flex flex-col items-center justify-center">
               <span class="text-[10px] font-bold text-[#2a4557]">設備與晶圓</span>
-              <span class="text-xl font-black text-[#31536b] font-mono">龍頭</span>
+              <span class="text-xl font-black text-[#31536b] font-mono">先進製程</span>
             </div>
             <p class="text-xs font-black text-[#1e3442]">致茂/台積電/華邦</p>
           </div>
@@ -159,7 +158,7 @@
           <div onclick="filterStocks('零組件散熱')" class="linen-card cursor-pointer rounded-3xl p-5 flex flex-col items-center text-center space-y-2 transition transform hover:-translate-y-1 hover:border-[#5d8785]">
             <div class="w-24 h-24 rounded-full bubble-teal flex flex-col items-center justify-center">
               <span class="text-[10px] font-bold text-[#2e4d4c]">零組件散熱</span>
-              <span class="text-xl font-black text-[#366160] font-mono">抗跌</span>
+              <span class="text-xl font-black text-[#366160] font-mono">抗跌特價</span>
             </div>
             <p class="text-xs font-black text-[#223d3c]">台光電/奇鋐/啟碁</p>
           </div>
@@ -177,9 +176,9 @@
         </div>
 
         <div id="expand-control-box" class="linen-card rounded-3xl p-5 text-center space-y-2 bg-[#f0e9df]">
-          <p class="text-xs text-[#6e5847] font-medium">已載入標的名單，點擊按鈕可校正當日最新盤面價格。</p>
+          <p class="text-xs text-[#6e5847] font-medium">名單已載入，點擊按鈕隨時連線校正為當下最新成交價格。</p>
           <button onclick="toggleExpandAll()" id="toggle-expand-btn" class="px-6 py-2 bg-[#6b5343] hover:bg-[#574335] text-white font-bold rounded-2xl shadow-sm transition cursor-pointer text-xs">
-            👇 點擊展開查看個股清單
+            👇 點擊展開查看全部股票名單
           </button>
         </div>
 
@@ -206,12 +205,7 @@
       </div>
     </div>
 
-    <!-- ==================== TAB 3: 產業鏈地圖 ==================== -->
-    <div id="tab-supplychain" class="tab-panel hidden space-y-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="supplychain-container"></div>
-    </div>
-
-    <!-- 底部聲明與警語 -->
+    <!-- 底部聲明 -->
     <footer class="linen-card rounded-3xl p-5 text-xs text-[#756254] space-y-1.5 text-center border-dashed">
       <p class="font-bold text-[#b85c37]">⚠️ 警語：本網站內容為公開數據分析整理，絕不構成任何招攬或投資買賣建議。投資人應獨立評估自身風險承受度，自負盈虧並持續記錄布局歷程。</p>
     </footer>
@@ -276,7 +270,6 @@
 
   <!-- JavaScript 控制腳本 -->
   <script>
-    // 股票代號清單（只記錄基本資料與營收數據，價格全靠網路即時撈取！）
     let stockData = [
       { code: "2360", name: "致茂", sector: "半導體檢測", filterCat: "晶圓與設備", rawPrice: 2025, price: "2,025", change: "-10.0%", mom: "+21.79%", yoy: "+206.47%", score: 96, rev: 40, sig: 19, res: 19, etf: 9, mac: 9, tag: "TOP 1 首選", advice: "CoWoS 設備訂單年增 206%，拉回具備極佳修復彈性。" },
       { code: "3661", name: "世芯-KY", sector: "ASIC晶片", filterCat: "通路與IC", rawPrice: 3705, price: "3,705", change: "-5.96%", mom: "+13.70%", yoy: "+496.0%", score: 95, rev: 39, sig: 19, res: 19, etf: 9, mac: 9, tag: "TOP 2 成長王", advice: "單月營收年增近 500%、月增 13.7%，客製化晶片爆發力最強。" },
@@ -304,7 +297,6 @@
 
     let isExpanded = false;
 
-    // 動態計算最大安全股數
     function calculateMaxShares(price) {
       const capital = parseFloat(document.getElementById("user-capital").value) || 500000;
       const riskPct = parseFloat(document.getElementById("user-risk-pct").value) || 0.10;
@@ -316,14 +308,12 @@
       };
     }
 
-    // 重新試算全部
     function recalculateUserPosition() {
       if (isExpanded) renderCards(stockData);
       renderTop5();
-      alert("已根據最新價格與你的資金規模重新試算完成！");
+      alert("已根據最新市場價格重新試算完成！");
     }
 
-    // 展開/收合控制
     function toggleExpandAll() {
       const container = document.getElementById("stocks-grid");
       const btn = document.getElementById("toggle-expand-btn");
@@ -337,12 +327,11 @@
         renderCards(stockData);
       } else {
         container.classList.add("hidden");
-        btn.innerText = "👇 點擊展開查看股票名單";
+        btn.innerText = "👇 點擊展開查看全部股票名單";
         badge.innerText = "未展開";
       }
     }
 
-    // 1. 渲染卡片清單
     function renderCards(list) {
       const container = document.getElementById("stocks-grid");
       container.innerHTML = "";
@@ -357,7 +346,7 @@
             <span class="px-2.5 py-0.5 bg-[#ede4d8] text-[#5e4737] border border-[#d8cfc4] font-bold text-xs rounded-full">${item.tag}</span>
           </div>
           <div class="flex justify-between text-xs py-1.5 px-3 bg-[#ede7de] rounded-2xl font-mono text-[#382b23] border border-[#ded5cb]">
-            <span>最新價: <strong>${item.price}</strong> (${item.change})</span>
+            <span>真實成交價: <strong>${item.price}</strong> (${item.change})</span>
             <span>月增: <strong class="${item.mom.includes('-') ? 'text-[#356170]' : 'text-[#9e3a3a]'}">${item.mom}</strong></span>
             <span>年增: <strong class="${item.yoy.includes('-') ? 'text-[#356170]' : 'text-[#9e3a3a]'}">${item.yoy}</strong></span>
           </div>
@@ -371,7 +360,6 @@
       });
     }
 
-    // 2. 渲染 TOP 5
     function renderTop5() {
       const container = document.getElementById("top5-list-container");
       container.innerHTML = "";
@@ -403,8 +391,8 @@
               ${s.score} <span class="text-xs font-sans text-[#756254] font-bold">分</span>
             </div>
             <div class="text-[11px] font-mono text-[#756254] leading-tight space-y-0.5">
-              <div>最新 <strong>${s.price}</strong></div>
-              <div class="${s.change.includes('-') ? 'text-[#356170]' : 'text-[#9e3a3a]'}">${s.change}</div>
+              <div>最新價 <strong>${s.price}</strong></div>
+              <div class="${s.change.includes('-') ? 'text-[#356170]' : 'text-[#9e3a3a]'} font-bold">${s.change}</div>
             </div>
           </div>
         `;
@@ -412,7 +400,6 @@
       });
     }
 
-    // 3. 泡泡篩選
     function filterStocks(category) {
       const container = document.getElementById("stocks-grid");
       const btn = document.getElementById("toggle-expand-btn");
@@ -432,20 +419,18 @@
       }
     }
 
-    // 4. 真正連線去抓台股「即時最新成交價」的核心函式
+    // 真正連線去抓台股「即時最新成交價」
     async function fetchRealtimeQuotes() {
       const spin = document.getElementById("refresh-spin");
       const text = document.getElementById("refresh-text");
       spin.classList.add("animate-spin");
-      text.innerText = "連線證交所行情...";
+      text.innerText = "即時校正中...";
 
       try {
-        // 利用 Yahoo 股市公開行情端點進行批次即時抓取
         const symbols = stockData.map(s => `${s.code}.TW`).join(',');
         const queryUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols}`;
-        
-        // 透過免註冊的公開 CORS 轉發節點取得即時 JSON
         const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(queryUrl)}`);
+        
         if (response.ok) {
           const raw = await response.json();
           const json = JSON.parse(raw.contents);
@@ -465,7 +450,7 @@
           }
         }
       } catch (err) {
-        console.log("備用模式：若即時連線受限，維持離線緩存價格", err);
+        console.log("連線維持緩存狀態", err);
       }
 
       spin.classList.remove("animate-spin");
@@ -475,7 +460,6 @@
       if (isExpanded) renderCards(stockData);
     }
 
-    // 5. 彈窗 Modal
     function openDetailModal(code) {
       const s = stockData.find(item => item.code === code);
       if (!s) return;
@@ -517,7 +501,6 @@
       el.className = "nav-tab px-4 py-2 bg-[#6b5343] text-white font-bold rounded-2xl shadow-sm transition";
     }
 
-    // 頁面開啟時自動執行一次即時行情校正
     document.addEventListener("DOMContentLoaded", () => {
       renderTop5();
       fetchRealtimeQuotes();
